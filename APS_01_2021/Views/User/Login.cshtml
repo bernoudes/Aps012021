@@ -1,0 +1,23 @@
+﻿@model APS_01_2021.Models.User
+@{ 
+    ViewData["Title"] = "Login";
+}
+
+<div class="allpage">
+    <div class="login_block">
+        <form action="/" method="post">
+            <h2>Página de Login</h2>
+            <label for="iNickOrEmailLogin">Apelido ou Email</label>
+            <input type="text" id="iNickOrEmailLogin" class="form-control" placeholder="Digite o apelido ou email aqui" />
+            <label for="iPassword">Senha</label>
+            <input type="password" id="iPasswordLogin" class="form-control" placeholder="Digite a senha" />
+
+            <div class="d-flex flex-column align-items-center" role="group">
+                <button type="button" class="btn btn-success mb-3 mt-3">Entrar</button>
+                <a>Não Tenho cadastro</a>
+                <a>ESQUECI A SENHA</a>
+            </div>
+
+        </form>
+    </div>
+</div>
