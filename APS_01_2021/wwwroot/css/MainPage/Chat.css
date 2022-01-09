@@ -1,0 +1,32 @@
+﻿.mainPageChat {
+    height: 100vh;
+    width: 100vw;
+    background-color: blue;
+    display: grid;
+    grid-template-rows: 80px 6fr 80px;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas:
+        "headerMainPageChat headerMainPageChat headerMainPageChat"
+        "sideContentMainPageChat contentMainPageChat contentMainPageChat"
+        "footerMainPageChat footerMainPageChat footerMainPageChat"
+}
+
+.headerMainPageChat {
+    grid-area: headerMainPageChat;
+    background-color: red;
+}
+
+.sideContentMainPageChat {
+    grid-area: sideContentMainPageChat;
+    background-color: magenta;
+}
+
+.contentMainPageChat {
+    grid-area: contentMainPageChat;
+    background-color: burlywood;
+}
+
+.footerMainPageChat {
+    grid-area: footerMainPageChat;
+    background-color:blueviolet;
+}

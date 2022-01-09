@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace APS_01_2021.Models
 {
-    public class User
+    public class UserModel
     {
         public string Name { get; set; }
         public string Password { get; set; }

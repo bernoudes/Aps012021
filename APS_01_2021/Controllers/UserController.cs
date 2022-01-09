@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace APS_01_2021.Controllers
 {
-    public class User : Controller
+    public class UserController : Controller
     {
         public IActionResult Login()
         {

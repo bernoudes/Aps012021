@@ -1,0 +1,22 @@
+﻿@section Styles{ 
+ <link href="~/css/MainPage/Chat.css" rel="stylesheet" type="text/css"/>
+}
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="mainPageChat">
+    <header class="headerMainPageChat">Header</header>
+    <div class="sideContentMainPageChat">
+    Side Components
+        @await Component.InvokeAsync("ListContacts")
+    </div>
+    <div class="contentMainPageChat">Content Component</div>
+    <footer class="footerMainPageChat">footer Component</footer>
+</div>
+
+
+
+
+
