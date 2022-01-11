@@ -1,19 +1,22 @@
 ﻿@section Styles{ 
- <link href="~/css/MainPage/Chat.css" rel="stylesheet" type="text/css"/>
+ <link href="~/css/MainPage/MainPage.css" rel="stylesheet" type="text/css"/>
+ <link href="~/css/Components/ContentChat.css" rel="stylesheet" type="text/css" />
+ <link href="~/css/Components/ListContacts.css" rel="stylesheet" type="text/css" />
+ <link href="~/css/Components/ListMeeting.css" rel="stylesheet" type="text/css"/>
 }
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<div class="mainPageChat">
-    <header class="headerMainPageChat">Header</header>
-    <div class="sideContentMainPageChat">
-    Side Components
-        @await Component.InvokeAsync("ListContacts")
+<div class="mainPage">
+    <header class="headerMainPage">
+        @await Component.InvokeAsync("HeaderMain")
+    </header>
+    <div class="contentMainPage">
+        @await Component.InvokeAsync("ContentChat") 
     </div>
-    <div class="contentMainPageChat">Content Component</div>
-    <footer class="footerMainPageChat">footer Component</footer>
+    <footer class="footerMainPage">footer Component</footer>
 </div>
 
 

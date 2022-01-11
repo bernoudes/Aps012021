@@ -1,0 +1,11 @@
+﻿@{ 
+    Layout = null;
+}
+
+<div class="chatPartContent">
+    <div class="sideChatPartContenta">
+        @await Component.InvokeAsync("ListContacts")
+        @await Component.InvokeAsync("ListMeeting") 
+    </div>
+    <div class="mainChatPartContent"> Chat propriamente dito</div>
+</div> 

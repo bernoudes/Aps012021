@@ -1,8 +1,6 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-
-
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -81,3 +79,16 @@ button.accept-policy {
 }
 
 /*--------------------------------------*/
+/*Globais Styles for use in divs*/
+.gb_block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: gray -1px -1px 20px 4px;
+
+    width: 500px;
+    height: min-content;
+    padding: 20px 10px;
+    border-radius: 20px;
+}
