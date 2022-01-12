@@ -33,6 +33,8 @@
 .contentMainPage {
     grid-area: contentMainPage;
     background-color: burlywood;
+
+    overflow:hidden;
 }
 
 .footerMainPage {
