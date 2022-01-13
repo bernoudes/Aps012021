@@ -92,3 +92,23 @@ button.accept-policy {
     padding: 20px 10px;
     border-radius: 20px;
 }
+
+.gbBlock {
+    display: flex;
+    box-shadow: gray -1px -1px 20px 4px;
+    width: 500px;
+    max-height: 40px;
+    padding: 20px 10px;
+
+    border-radius: 20px;
+}
+
+.gbBoxTitle{
+    background-color:burlywood;
+    padding: 5px 10px;
+}
+
+.gbBoxContent {
+    background-color:cadetblue;
+    padding: 0px 10px;
+}

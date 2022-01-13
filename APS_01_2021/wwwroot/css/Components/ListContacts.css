@@ -1,6 +1,27 @@
-﻿.listContactSideChat{
+﻿.listContactSideChat {
     width: 90%;
     background-color: chartreuse;
     margin-top: 20px;
-    max-height: 120px;
+    max-height: 40%;
+
+    overflow-x: hidden;
+    border-radius: 20px;
+}
+
+.listContactShow{
+    display: flex;
+    align-items: center;
+    padding: 2px;
+}
+
+.listContactShowSelect{
+    background-color:aquamarine;
+}
+
+.listContactBallOnline {
+    border-radius: 10px;
+    background-color: chartreuse;
+    height: 12px;
+    width: 12px;
+    margin-right: 5px;
 }
