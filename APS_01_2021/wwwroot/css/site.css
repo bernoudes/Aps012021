@@ -101,14 +101,22 @@ button.accept-policy {
     padding: 20px 10px;
 
     border-radius: 20px;
+    overflow-y:hidden;
 }
 
-.gbBoxTitle{
-    background-color:burlywood;
+.gbBlockWithTitle {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 20px;
+}
+
+.gbBoxTitle {
+    background-color: burlywood;
     padding: 5px 10px;
 }
 
 .gbBoxContent {
     background-color:cadetblue;
     padding: 0px 10px;
+    overflow-y: scroll;
 }
