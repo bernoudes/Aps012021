@@ -1,0 +1,84 @@
+﻿/*COLOR STRUCT FOR EVERTHING*/
+:root {
+    --color-one: #303030;
+    --color-two: #7D7D7D;
+    --color-three: #FFFFFF;
+    --scrollbar-color-one: #AEAEAE;
+    --text-color-one: #AEAEAE;
+    --text-color-two: #FFFFFF;
+    --title-box-color-one: #7D7D7D;
+}
+
+
+
+/*MAIN BLOCKS STYLES*/
+.m-block {
+    display: flex;
+    box-shadow: gray -1px -1px 20px 4px;
+    width: 500px;
+    max-height: 40px;
+    padding: 20px 10px;
+    border-radius: 20px;
+    overflow-y: hidden;
+}
+
+.m-intern-block {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 20px;
+}
+
+.m-block-title {
+    background-color: var(--title-box-color-one);
+    color: var(--text-color-two);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.m-block-content {
+    background-color: var(--color-one);
+    color: var(--text-color-one);
+    padding: 0px 10px;
+    overflow-y: scroll;
+}
+
+.m-block-button-group {
+    display: flex;
+}
+
+.m-block-title-button,
+.m-block-title-button:focus {
+    background-color: var(--title-box-color-one);
+    color: var(--text-color-two);
+    outline:none;
+    border: none;
+    width: 100px;
+}
+
+.m-block-title-button:hover{
+    background-color: var(--color-one);
+    border: solid 2px  var(--text-color-two);
+    border-radius: 5px;
+}
+
+
+/*SCROLL BAR STYLES*/
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color-one);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-button:decrement,
+::-webkit-scrollbar-button:end:increment{
+    display:none;
+}

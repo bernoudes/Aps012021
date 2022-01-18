@@ -1,0 +1,52 @@
+﻿/*LIST CONTACTS*/
+.l-contact-intern-box {
+    width: 90%;
+    margin-top: 20px;
+    max-height: 40%;
+}
+
+.l-contact-content {
+    height: 70%;
+}
+
+.l-contacts-line {
+    display: flex;
+    align-items: center;
+    padding:5px;
+    border-radius: 5px;
+}
+
+.l-contacts-line:hover{
+    background-color: var(--color-two);
+    color: var(--color-one);
+}
+
+.l-contact-content > .selected {
+    background-color: var(--color-three);
+    color: var(--color-one);
+}
+
+.l-contacts-ball {
+    border-radius: 10px;
+    height: 12px;
+    width: 12px;
+}
+
+.l-contacts-ball-online {
+    background-color: chartreuse;
+}
+
+.l-contacts-ball-busy {
+    background-color: coral;
+}
+
+.l-contacts-ball-absent {
+    background-color: yellow;
+}
+
+.l-contacts-ball-offline {
+    background-color: black;
+}
+
+
+/*LIST MEETINGS*/

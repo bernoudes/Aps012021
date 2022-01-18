@@ -2,86 +2,32 @@
     Layout = null;
 }
 
-<div class="gbBlockWithTitle listContactSideChat">
-    <div class="gbBoxTitle">
+<div class="gbBlockWithTitle l-contact-intern-box">
+    <div class="m-block-title">
         Contatos
-        <div>
-            <button>Criar</button>
-            <button>Deletar</button>
+        <div class="m-block-button-group">
+            <button class="m-block-title-button">Criar</button>
+            <button class="m-block-title-button">Deletar</button>
         </div>
     </div>
-    <div class="gbBoxContent listContactContent">
-        <div class="listContactShow listContactShowSelect">
-            <div class="listContactBallOnline"></div>
-            Marcos
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Marcelo
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Murilo
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            selton
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Magno magun
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            king crimison
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
-        <div class="listContactShow">
-            <div class="listContactBallOnline"></div>
-            Sticky Fingers
-        </div>
+    <div class="m-block-content l-contact-content">
+        @for(var i = 0; i < 10; i++)
+            {
+
+                if(i == 1)
+                {
+                    <div class="l-contacts-line selected">
+                        <div class="listContactBallOnline"></div>
+                        Marcos @i
+                    </div>
+                }
+                else
+                {
+                    <div class="l-contacts-line">
+                        <div class="listContactBallOnline"></div>
+                        Marcos @i
+                    </div>
+                }
+            }
     </div>
 </div>
