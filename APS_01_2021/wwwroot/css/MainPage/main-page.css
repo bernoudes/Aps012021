@@ -1,7 +1,7 @@
-﻿.mainPage {
+﻿.main-page {
     height: 100vh;
     width: 100vw;
-    background-color: red;
+    background-color: var(--background-color-one);
     display: grid;
     grid-template-rows: 40px 6fr 40px;
     grid-template-areas:
@@ -10,34 +10,33 @@
         "footerMainPage"
 }
 
-.headerMainPage {
+.header-main-page {
     grid-area: headerMainPage;
     background-color: white;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     border-radius: 25px;
     box-shadow: gray -1px -1px 20px 4px;
-
     margin: 5px 5px;
     padding: 0px 20px;
-
 }
 
-.headerMainPageUser{
+.header-main-page {
     display: flex;
 }
 
-.contentMainPage {
+.content-main-page {
     grid-area: contentMainPage;
-    background-color: burlywood;
-
-    overflow:hidden;
+    overflow: hidden;
 }
 
-.footerMainPage {
+.footer-main-page {
     grid-area: footerMainPage;
-    background-color: blueviolet;
+    background-color: var(--background-color-two);
+    color: var(--text-color-two);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -12,8 +12,9 @@
 .l-contacts-line {
     display: flex;
     align-items: center;
-    padding:5px;
+    padding: 5px;
     border-radius: 5px;
+    color: var(--color-four);
 }
 
 .l-contacts-line:hover{
@@ -28,6 +29,7 @@
 
 .l-contacts-ball {
     border-radius: 10px;
+    margin-right: 5px;
     height: 12px;
     width: 12px;
 }
@@ -50,3 +52,35 @@
 
 
 /*LIST MEETINGS*/
+.l-meeting-intern-box {
+    width: 90%;
+    margin-top: 20px;
+    max-height: 40%;
+    overflow-x: hidden;
+    border-radius: 20px;
+}
+
+.l-meeting-content {
+    height: 70%;
+}
+
+.l-meetings-line p {
+    margin: 0px;
+}
+
+.l-meetings-line {
+    border-bottom: 2px solid var(--color-three);
+    border-radius: 5px;
+    padding: 2px;
+    color: var(--color-four);
+}
+
+.l-meetings-line:hover{
+    background-color: var(--color-two);
+    color: var(--color-one);
+}
+
+.l-meeting-content > .selected {
+    background-color: var(--color-three);
+    color: var(--color-one);
+}

@@ -2,12 +2,12 @@
     Layout = null;
 }
 
-<div class="chatPartContent">
-    <div class="sideChatPartContenta">
+<div class="chat-content">
+    <div class="chat-content-side">
         @await Component.InvokeAsync("ListContacts")
         @await Component.InvokeAsync("ListMeeting") 
     </div>
-    <div class="mainChatPartContent">
+    <div class="chat-content-main">
         @await Component.InvokeAsync("ChatMessage")
     </div>
 </div> 

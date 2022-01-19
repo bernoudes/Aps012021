@@ -1,25 +1,25 @@
 ﻿@section Styles{ 
     <link href="~/css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="~/css/MainPage/main-page.css" rel="stylesheet" type="text/css"/>
     <link href="~/css/Components/lists-components.css" rel="stylesheet" type="text/css"/>
- <link href="~/css/MainPage/MainPage.css" rel="stylesheet" type="text/css"/>
- <link href="~/css/Components/ContentChat.css" rel="stylesheet" type="text/css" />
- <link href="~/css/Components/ListContacts.css" rel="stylesheet" type="text/css" />
- <link href="~/css/Components/ListMeeting.css" rel="stylesheet" type="text/css"/>
- <link href="~/css/Components/ChatMessage.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/Components/content-chat.css" rel="stylesheet" type="text/css"/>
+    <link href="~/css/Components/chat-messege-area.css" rel="stylesheet" type="text/css"/>
 }
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<div class="mainPage">
-    <header class="headerMainPage">
+<div class="main-page">
+    <header class="header-main-page">
         @await Component.InvokeAsync("HeaderMain")
     </header>
-    <div class="contentMainPage">
+    <div class="content-main-page">
         @await Component.InvokeAsync("ContentChat") 
     </div>
-    <footer class="footerMainPage">footer Component</footer>
+    <footer class="footer-main-page">
+        <strong>App Construído para a aps da unip - 4° semestre 2021 - App </strong>
+    </footer>
 </div>
 
 

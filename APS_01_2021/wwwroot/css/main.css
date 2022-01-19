@@ -1,12 +1,18 @@
 ﻿/*COLOR STRUCT FOR EVERTHING*/
 :root {
-    --color-one: #303030;
+    --color-one: #383838;
     --color-two: #7D7D7D;
     --color-three: #FFFFFF;
+    --color-four: #bbbbbb;
+    --background-color-one: #191919;
+    --background-color-two: #7D7D7D;
     --scrollbar-color-one: #AEAEAE;
+    --scrollbar-color-two: #383838;
     --text-color-one: #AEAEAE;
     --text-color-two: #FFFFFF;
+    --text-color-three: #383838;
     --title-box-color-one: #7D7D7D;
+    --textarea-color-one: #bbbbbb;
 }
 
 
@@ -48,21 +54,40 @@
     display: flex;
 }
 
-.m-block-title-button,
-.m-block-title-button:focus {
-    background-color: var(--title-box-color-one);
-    color: var(--text-color-two);
-    outline:none;
-    border: none;
+.m-block-title-button {
     width: 100px;
 }
 
-.m-block-title-button:hover{
+/*SIMPLE ELEMENTS*/
+.m-button,
+m-button:focus{
+    background-color: var(--title-box-color-one);
+    color: var(--text-color-two);
+    outline: none;
+    border: none;
+}
+
+.m-button:hover {
     background-color: var(--color-one);
-    border: solid 2px  var(--text-color-two);
+    border: solid 2px var(--text-color-two);
     border-radius: 5px;
 }
 
+.text-area {
+    background-color: var(--textarea-color-one);
+    color: var(--text-color-three);
+    border-radius: 10px;
+    outline: none;
+}
+
+.text-area::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color-two);
+    border-radius: 10px;
+}
+
+.text-area:focus{
+
+}
 
 /*SCROLL BAR STYLES*/
 ::-webkit-scrollbar{

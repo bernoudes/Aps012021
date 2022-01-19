@@ -2,79 +2,37 @@
     Layout = null;
 }
 
-<div class="chatMessage">
-    <div class="chatMessageArea">
-        <div class="chatMessageContentUser">
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
-        <div class="chatMessageContentContact">
-            <p>user name: Marcos</p>
-            <p>
-                Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-                espero realmente que dê certo.
-            </p>
-            <p>horário: 04:05 - 10/05/2021</p>
-        </div>
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
+<div class="chat-message">
+    <div class="chat-message-area">
+        @for (int i = 0; i < 20; i++)
+        {
+            if (i % 2 == 0)
+            {
+                <div class="chat-message-content user">
+                    <p>user name: Marcos</p>
+                    <p>
+                        Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
+                        espero realmente que dê certo.
+                    </p>
+                    <p>horário: 04:05 - 10/05/2021</p>
+                </div>
+            }
+            else
+            {
+                <div class="chat-message-content">
+                    <p>user name: Marcos</p>
+                    <p>
+                        Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
+                        espero realmente que dê certo.
+                    </p>
+                    <p>horário: 04:05 - 10/05/2021</p>
+                </div>
+            }
 
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
-
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
-
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
-
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
-
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
-
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
-
-        <div class="chatMessageContentContact">
-            user name: Mauricio
-            Aqui está um exemplo de conteudo escrito que deve aparecer nos moldes corretos para ser exibido;
-            espero realmente que dê certo.
-            horário: 04:05 - 10/05/2021
-        </div>
+        }
     </div>
-    <div class="chatMessageTextArea">
-         <textarea class="chatMessageTextInput" rows="2"></textarea>
-         <button class="chatMessageButton">Send</button>
+    <div class="chat-message-text-area">
+         <textarea class="chat-message-text-input text-area" rows="2"></textarea>
+         <button class="chat-message-send-button  m-button">Send</button>
     </div>
 </div>

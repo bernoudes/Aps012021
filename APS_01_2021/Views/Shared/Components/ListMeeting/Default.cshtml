@@ -2,83 +2,35 @@
     Layout = null;
 }
 
-<div class="gbBlockWithTitle listMeetingSideChat">
+<div class="m-intern-block l-meeting-intern-box">
     <div class="m-block-title">
         Reunião
         <div class="m-block-button-group">
-            <button class="m-block-title-button">Criar</button>
-            <button class="m-block-title-button">Deletar</button>
+            <button class="m-block-title-button m-button">Criar</button>
+            <button class="m-block-title-button m-button">Deletar</button>
         </div>
     </div>
-    <div class="m-block-content listMeetingContent">
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
-
-        <div class="listMeetingShow">
-            <p>Motivo: exemplo</p>
-            <p>Solicitante: Marcos</p>
-            <p>Data:</p>
-            <p>Hora:</p>
-        </div>
+    <div class="m-block-content l-meeting-content">
+        @for (int i = 0; i < 10; i++)
+        {
+            if (i == 6)
+            {
+                <div class="l-meetings-line selected">
+                    <p>Motivo: exemplo</p>
+                    <p>Solicitante: Marcos</p>
+                    <p>Data:</p>
+                    <p>Hora:</p>
+                </div>
+            }
+            else
+            {
+                <div class="l-meetings-line ">
+                    <p>Motivo: exemplo</p>
+                    <p>Solicitante: Marcos</p>
+                    <p>Data:</p>
+                    <p>Hora:</p>
+                </div>
+            }
+        }
     </div>
 </div>

@@ -1,28 +1,22 @@
-﻿.chatPartContent {
+﻿.chat-content {
     font-weight: bold;
-    background-color: chartreuse;
-
     display: flex;
     flex-direction: row;
     height: 100%;
 }
 
-.sideChatPartContenta {
-    background-color: red;
+.chat-content-side {
     font-weight: bold;
     width: 350px;
-
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
 }
 
-.mainChatPartContent {
-    background-color: aquamarine;
+.chat-content-main {
     width: 100%;
     height: 1fr;
-
     padding: 10px 10px;
     display: flex;
     justify-content: center;
