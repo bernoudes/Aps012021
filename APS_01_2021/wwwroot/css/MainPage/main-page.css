@@ -12,18 +12,26 @@
 
 .header-main-page {
     grid-area: headerMainPage;
-    background-color: white;
+    background-color: var(--background-color-two);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-main-user {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 25px;
-    box-shadow: gray -1px -1px 20px 4px;
-    margin: 5px 5px;
-    padding: 0px 20px;
+    width: 90%;
 }
 
-.header-main-page {
+.header-main-btn-group-text{
+    margin-right: 10px;
+}
+
+.header-main-button-group {
     display: flex;
+    color: var(--text-color-two);
 }
 
 .content-main-page {
