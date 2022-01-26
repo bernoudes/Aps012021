@@ -1,4 +1,4 @@
-﻿/*COLOR STRUCT FOR EVERTHING*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 /*COLOR STRUCT FOR EVERTHING*/
 :root {
     --color-one: #383838;
     --color-two: #7D7D7D;
@@ -15,8 +15,14 @@
     --textarea-color-one: #bbbbbb;
 }
 
-
-
+.all-page{
+    background-color: var(--background-color-one);
+    width: 100vb;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /*MAIN BLOCKS STYLES*/
 .m-block {
     display: flex;
@@ -58,9 +64,17 @@
     width: 100px;
 }
 
+.m-block-intern-box {
+    background-color: var(--background-color-two);
+    border: solid 10px var(--color-four);
+    width: 500px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
 /*SIMPLE ELEMENTS*/
 .m-button,
-m-button:focus{
+.m-button:focus {
     background-color: var(--title-box-color-one);
     color: var(--text-color-two);
     outline: none;
@@ -71,6 +85,17 @@ m-button:focus{
     background-color: var(--color-one);
     border: solid 2px var(--text-color-two);
     border-radius: 5px;
+}
+
+.m-btn-passion {
+    background-color: var(--color-two); 
+    border: solid 2px var(--text-color-two);
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.login-area{
+    color: var(--text-color-two);
 }
 
 .text-area {
@@ -106,4 +131,4 @@ m-button:focus{
 ::-webkit-scrollbar-button:decrement,
 ::-webkit-scrollbar-button:end:increment{
     display:none;
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
