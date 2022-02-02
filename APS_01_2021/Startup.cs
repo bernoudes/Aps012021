@@ -1,6 +1,10 @@
+using APS_01_2021.Data;
+using APS_01_2021.Hubs;
+using APS_01_2021.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +30,17 @@ namespace APS_01_2021
             services.AddControllersWithViews();
 
             services.AddMvc().AddRazorRuntimeCompilation();
+
+            services.AddSignalR();
+
+            //connection with mysql
+            var connection = Configuration.GetConnectionString("MyDbContext");
+
+            services.AddDbContext<MyDbContext>(options =>
+                    options.UseMySql(connection, ServerVersion.AutoDetect(connection),
+                    builder => builder.MigrationsAssembly("APS_01_2021")));
+
+            services.AddScoped<UserServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +68,8 @@ namespace APS_01_2021
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=User}/{action=Login}/{id?}");
+
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

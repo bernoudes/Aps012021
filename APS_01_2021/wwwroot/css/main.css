@@ -13,6 +13,7 @@
     --text-color-three: #383838;
     --title-box-color-one: #7D7D7D;
     --textarea-color-one: #bbbbbb;
+    --color-error-text: #ffd800;
 }
 
 .all-page{
@@ -110,13 +111,19 @@
     border-radius: 10px;
 }
 
-.text-area:focus{
 
+a, a:active, a:focus, a:hover{
+    color:var(--text-color-two);
+    outline: none;
+    text-decoration: none;
 }
 
+.errortext{
+    color: var(--color-error-text);
+}
 /*SCROLL BAR STYLES*/
-::-webkit-scrollbar{
-    width:10px;
+::-webkit-scrollbar {
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track{

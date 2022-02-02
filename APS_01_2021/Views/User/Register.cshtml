@@ -5,29 +5,39 @@
 
 <div class="all-page">
     <div class="m-block-intern-box login-area">
-        <form action="/" method="post">
+
+        <form asp-action="Register" enctype="multipart/form-data" method="post">
             <h2>Registro</h2>
             <label for="iNameRegister">Nome do usuário</label>
-            <input type="text" id="iNameRegister" class="form-control" placeholder="Digite o Nome" />
+            <input type="text" id="iNameRegister" class="form-control" placeholder="Digite o Nome"  asp-for="Name"/>
             
             <label for="iNickNameRegister">Apelido</label>
-            <input type="text" id="iNickNameRegister" class="form-control" placeholder="Digite o Apelido"/>
+            <input type="text" id="iNickNameRegister" class="form-control" placeholder="Digite o Apelido" asp-for="NickName"/>
             
             <label for="iDateBornRegister">Data de Nasc</label>
-            <input type="date" id="iDateBornRegister" class="form-control"/>
+            <input type="date" id="iDateBornRegister" class="form-control" asp-for="BornDate"/>
             
             <label for="iEmailRegister">Email</label>
-            <input type="text" id="iEmailRegister" class="form-control" placeholder="Digite o Email" />
+            <input type="text" id="iEmailRegister" class="form-control" placeholder="Digite o Email" asp-for="Email" />
 
             <label for="iPasswordRegister">Senha</label>
-            <input type="password" id="iPasswordRegister" class="form-control" placeholder="Digite a senha" />
+            <input type="password" id="iPasswordRegister" class="form-control" placeholder="Digite a senha" asp-for="Password"/>
 
             <label for="iVerifyPasswordRegister">Redigite a senha</label>
-            <input type="password" id="iVerifyPasswordRegister" class="form-control" placeholder="Digite a senha novamente" />
+            <input type="password" id="iVerifyPasswordRegister" class="form-control" placeholder="Digite a senha novamente" asp-for="ConfirmPassword" />
+
+            <div class="errortext">
+                @if(TempData["Error"] != null)
+                {
+                    <p>@TempData["Error"]</p>
+                }
+            </div>
 
             <div class="d-flex flex-column align-items-center" role="group">
-                <button type="button" class="m-button m-button-login-enter m-btn-passion">Registrar</button>
-                <a>Retornar para o login</a>
+                <button type="submit" class="m-button m-button-login-enter m-btn-passion" value="Register">
+                    Registrar
+                </button>
+                <a asp-action="Login">Retornar para o login</a>
             </div>
 
         </form>
