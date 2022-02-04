@@ -1,6 +1,7 @@
 using APS_01_2021.Data;
 using APS_01_2021.Hubs;
 using APS_01_2021.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,13 @@ namespace APS_01_2021
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/";
+                    options.AccessDeniedPath = "/denied";
+                });
 
             services.AddMvc().AddRazorRuntimeCompilation();
 
@@ -60,7 +68,7 @@ namespace APS_01_2021
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

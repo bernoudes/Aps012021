@@ -13,7 +13,10 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <button class="dropdown-item" type="button">Alterar Informações</button>
                 <button class="dropdown-item" type="button">Convites</button>
-                <button class="dropdown-item" type="button">Sair</button>
+                <a class="dropdown-item" type="button" 
+                   asp-area="" asp-controller="User" asp-action="Logout">
+                    Sair
+                </a>
             </div>
         </div>
     </div>
