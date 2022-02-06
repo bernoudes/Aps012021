@@ -76,7 +76,7 @@ namespace APS_01_2021.Controllers
             try
             {
                 await _userService.InsertAsync(user);
-                return View("Register");
+                return View("Login");
             }
             catch (IntegrityException ex)
             {

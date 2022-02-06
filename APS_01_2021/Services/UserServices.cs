@@ -66,5 +66,14 @@ namespace APS_01_2021.Services
         {
             return await _context.User.FirstOrDefaultAsync(x => x.NickName == nickname);
         }
+        public async Task<int> FindIdByNickName(string nickname)
+        {
+            var user = await FindByNickName(nickname);
+            if(user == null)
+            {
+                return 0;
+            }
+            return user.Id;
+        }
     }
 }

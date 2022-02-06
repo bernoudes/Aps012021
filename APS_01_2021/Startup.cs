@@ -49,6 +49,7 @@ namespace APS_01_2021
                     builder => builder.MigrationsAssembly("APS_01_2021")));
 
             services.AddScoped<UserServices>();
+            services.AddScoped<InviteListContactServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
