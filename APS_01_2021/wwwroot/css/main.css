@@ -73,6 +73,18 @@
     border-radius: 20px;
 }
 
+.m-extern-box {
+    top: 50%;
+    left: 50%;
+    margin-left:-150px;
+    position:absolute;
+    display: none;
+    background-color: var(--background-color-two);
+    border: solid 8px var(--color-four); 
+    width: 350px;
+    border-radius: 10px; 
+}
+
 /*SIMPLE ELEMENTS*/
 .m-button,
 .m-button:focus {

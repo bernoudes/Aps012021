@@ -49,8 +49,30 @@
 .l-contacts-ball-offline {
     background-color: black;
 }
+/*////////////////////////////////////////*/
+/*list contact*/
+.invite-contacts-line { 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap; 
+    padding: 0px;
+    border-radius: 5px;
+    color: var(--color-four);
+    background-color: red;
+} 
 
+.invite-bts-line-group {
+    margin-left: 90px; 
+    padding: 5px;
+    border-radius: 5px;
+}
 
+.invite-bts-line{
+    margin: 0px; 
+    border-radius: 2px;
+}
+/*////////////////////////////////////////*/
 /*LIST MEETINGS*/
 .l-meeting-intern-box {
     width: 90%;

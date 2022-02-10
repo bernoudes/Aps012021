@@ -1,8 +1,24 @@
-﻿@{
-    Layout = null;
-}
-
-<div>
-    @await Component.InvokeAsync("InviteListContatc");
-    @await Component.InvokeAsync("InviteListMeeting");
+﻿<div class="m-extern-box" id="iInviteListBox">
+    <div class="m-block-title">Convites</div>fgsfdgdf
+    <div class="m-block-content">
+         @await Component.InvokeAsync("InviteListContact");
+         @await Component.InvokeAsync("InviteListMeeting");
+    </div>
 </div>
+
+<script>
+    window.addEventListener('click', function (e){
+        if(!document.getElementById('iInviteListBox').contains(e.target)){
+            //closeInviteListBox();
+        }
+    })
+
+    function openInviteListBox()
+    {
+        document.getElementById('iInviteListBox').style.display = 'block';
+    }
+    function closeInviteListBox()
+    {
+        document.getElementById('iInviteListBox').style.display = 'none';
+    }
+</script>

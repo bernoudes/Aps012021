@@ -2,7 +2,7 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="main-page">
+<div class="main-page" id="main-page-chat" onload="justrig();">
     <header class="header-main-page">
         @await Component.InvokeAsync("HeaderMain")
     </header>
@@ -12,9 +12,10 @@
     <footer class="footer-main-page">
         <strong>App Construído para a aps da unip - 4° semestre 2021 - App </strong>
     </footer>
+
+    @await Component.InvokeAsync("InviteListBox")
 </div>
 
-
-
-
-
+<script>
+    openInviteListBox();
+</script>
