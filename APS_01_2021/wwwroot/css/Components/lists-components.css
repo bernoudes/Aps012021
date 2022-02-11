@@ -8,7 +8,7 @@
 .l-contact-content {
     height: 70%;
 }
-
+ 
 .l-contacts-line {
     display: flex;
     align-items: center;
@@ -51,20 +51,35 @@
 }
 /*////////////////////////////////////////*/
 /*list contact*/
-.invite-contacts-line { 
+.invite-intern-box {
+    height: 180px;
+    margin: 10px 0px;
+}
+
+.invite-content {
     display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    overflow: scroll;
+    padding: 20px 0px;
+    height: 180px;
+    background-color: var(--background-color-one);
+}
+
+.invite-line {
+    display: flex; 
+    height: 30px; 
+    padding-left: 10px;
+    margin-top: 2px;
+    border-radius: 5px;
     flex-direction: row;
     align-items: center;
-    flex-wrap: nowrap; 
-    padding: 0px;
-    border-radius: 5px;
     color: var(--color-four);
-    background-color: red;
 } 
 
 .invite-bts-line-group {
     margin-left: 90px; 
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
 }
 

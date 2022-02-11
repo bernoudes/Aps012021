@@ -7,7 +7,7 @@
     --background-color-one: #191919;
     --background-color-two: #7D7D7D;
     --scrollbar-color-one: #AEAEAE;
-    --scrollbar-color-two: #383838;
+    --scrollbar-color-two: #383838; 
     --text-color-one: #AEAEAE;
     --text-color-two: #FFFFFF;
     --text-color-three: #383838;
@@ -74,15 +74,15 @@
 }
 
 .m-extern-box {
-    top: 50%;
     left: 50%;
-    margin-left:-150px;
-    position:absolute;
-    display: none;
+    margin-left: -150px;
+    margin-top: 50px; 
+    position: absolute;
+    display: none; 
     background-color: var(--background-color-two);
-    border: solid 8px var(--color-four); 
+    border: solid 8px var(--color-four);
     width: 350px;
-    border-radius: 10px; 
+    border-radius: 10px;
 }
 
 /*SIMPLE ELEMENTS*/
@@ -133,6 +133,7 @@ a, a:active, a:focus, a:hover{
 .errortext{
     color: var(--color-error-text);
 }
+
 /*SCROLL BAR STYLES*/
 ::-webkit-scrollbar {
     width: 10px;

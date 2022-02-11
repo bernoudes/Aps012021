@@ -1,15 +1,15 @@
 ﻿<div class="m-extern-box" id="iInviteListBox">
-    <div class="m-block-title">Convites</div>fgsfdgdf
+    <div class="m-block-title">Convites</div>
     <div class="m-block-content">
-         @await Component.InvokeAsync("InviteListContact");
-         @await Component.InvokeAsync("InviteListMeeting");
+         @await Component.InvokeAsync("InviteListContact")
+         @await Component.InvokeAsync("InviteListMeeting")
     </div>
 </div>
 
 <script>
     window.addEventListener('click', function (e){
         if(!document.getElementById('iInviteListBox').contains(e.target)){
-            //closeInviteListBox();
+            closeInviteListBox();
         }
     })
 
