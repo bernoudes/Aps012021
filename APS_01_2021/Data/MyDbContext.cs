@@ -7,6 +7,8 @@ namespace APS_01_2021.Data
     {
         public DbSet<UserModel> User { get; set; }
         public DbSet<InviteListContactModel> InviteListContact { get; set; }
+        public DbSet<InviteListMeetingModel> InviteListMeeting { get; set; }
+        public DbSet<ContactModel> Contact { get; set; }
 
         public MyDbContext(DbContextOptions<MyDbContext> options)
             : base(options)

@@ -41,6 +41,7 @@ namespace APS_01_2021.Controllers
                 var claims = new List<Claim>();
                 claims.Add(new Claim("usernickname", user.NickName));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier , user.NickName));
+                claims.Add(new Claim(ClaimTypes.Name, user.NickName));
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);

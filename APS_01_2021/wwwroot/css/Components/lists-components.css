@@ -59,34 +59,39 @@
 .invite-content {
     display: flex;
     flex-direction: column; 
-    justify-content: center; 
+    justify-content: start; 
     overflow: scroll;
-    padding: 20px 0px;
+    padding: 2px 0px 20px 0px;
     height: 180px;
     background-color: var(--background-color-one);
 }
 
 .invite-line {
-    display: flex; 
-    height: 30px; 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 30px;
     padding-left: 10px;
     margin-top: 2px;
     border-radius: 5px;
-    flex-direction: row;
     align-items: center;
     color: var(--color-four);
 } 
 
 .invite-bts-line-group {
-    margin-left: 90px; 
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left:auto; 
     padding: 10px;
     border-radius: 5px;
 }
 
 .invite-bts-line{
-    margin: 0px; 
+    margin: 0px 0px 0px 5px; 
     border-radius: 2px;
 }
+
+
 /*////////////////////////////////////////*/
 /*LIST MEETINGS*/
 .l-meeting-intern-box {

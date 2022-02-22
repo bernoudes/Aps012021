@@ -5,20 +5,3 @@
          @await Component.InvokeAsync("InviteListMeeting")
     </div>
 </div>
-
-<script>
-    window.addEventListener('click', function (e){
-        if(!document.getElementById('iInviteListBox').contains(e.target)){
-            closeInviteListBox();
-        }
-    })
-
-    function openInviteListBox()
-    {
-        document.getElementById('iInviteListBox').style.display = 'block';
-    }
-    function closeInviteListBox()
-    {
-        document.getElementById('iInviteListBox').style.display = 'none';
-    }
-</script>

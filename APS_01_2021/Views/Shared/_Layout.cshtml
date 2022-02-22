@@ -11,17 +11,17 @@
     <link href="~/css/Components/lists-components.css" rel="stylesheet" type="text/css" />
     <link href="~/css/Components/content-chat.css" rel="stylesheet" type="text/css" />
     <link href="~/css/Components/chat-messege-area.css" rel="stylesheet" type="text/css" />
-
     @RenderSection("Styles", false)
+    
 </head>
 <body>
     <div class="layout_main">
         @RenderBody()
     </div>
 
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

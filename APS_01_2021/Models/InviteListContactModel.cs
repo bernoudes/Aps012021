@@ -3,18 +3,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APS_01_2021.Models
 {
-    [Table("CONTACT_INVITE")]
+    [Table("INVITE_CONTACT")]
     public class InviteListContactModel
     {
         public int Id { get; set; }
-        [Column("CONTACT_ONE_ID")]
+        [Column("USER_ONE_ID")]
         public int ContactOneId { get; set; }
-        [Column("CONTACT_TWO_ID")]
+        [Column("USER_TWO_ID")]
         public int ContactTwoId { get; set; }
         [Column("DT_REF")]
         public DateTime DateReference { get; set; }
+        [Column("IS_ACCEPT")]
+        public string IsAccept { get; set; }
 
         [NotMapped]
-        public string ContactTwoNickName { get; set; }
+        public string ContactOneNickName { get; set; }
     }
 }

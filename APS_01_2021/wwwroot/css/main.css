@@ -16,7 +16,8 @@
     --color-error-text: #ffd800;
 }
 
-.all-page{
+
+.all-page {
     background-color: var(--background-color-one);
     width: 100vb;
     height: 100vh;
@@ -78,11 +79,11 @@
     margin-left: -150px;
     margin-top: 50px; 
     position: absolute;
-    display: none; 
     background-color: var(--background-color-two);
     border: solid 8px var(--color-four);
     width: 350px;
     border-radius: 10px;
+    z-index: 1;
 }
 
 /*SIMPLE ELEMENTS*/

@@ -50,6 +50,8 @@ namespace APS_01_2021
 
             services.AddScoped<UserServices>();
             services.AddScoped<InviteListContactServices>();
+            services.AddScoped<InviteListContactServices>();
+            services.AddScoped<ContactServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

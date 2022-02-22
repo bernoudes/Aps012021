@@ -58,6 +58,11 @@ namespace APS_01_2021.Services
         }
 
         //FIND
+        public async Task<String> FindNickNameById(int id)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(x => x.Id == id);
+            return user.NickName;
+        }
         public async Task<UserModel> FindByEmailAsync(string email)
         {
             return await _context.User.FirstOrDefaultAsync(x => x.Email == email);

@@ -43,9 +43,16 @@ namespace APS_01_2021.Services
         public async Task<List<InviteListContactModel>> FindAllByNickName(string nickname)
         {
             var userid = await _userservice.FindIdByNickName(nickname);
-            return await _context.InviteListContact
-                .Where(x => x.ContactOneId == (int) userid)
+            var listUsers =  await _context.InviteListContact
+                .Where(x => x.ContactTwoId == (int) userid && x.IsAccept == "NOT_RESP")
                 .ToListAsync();
+
+            foreach(var item in listUsers)
+            {
+                item.ContactOneNickName = await _userservice.FindNickNameById(item.ContactOneId);
+            }
+
+            return listUsers;
         }
 
     }
