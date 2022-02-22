@@ -3,16 +3,20 @@
     Layout = null;
 }
 <div class="m-extern-box" id="iInviteContactCreate">
-    <div class="m-block-title">Convites</div>
-    <div class="m-block-content">
-   efdfasd
+    <div class="m-extern-box-title">Convites</div>
+    <div class="m-extern-box-content">
+        <form>
+            <label>Digite o Apelido:</label>
+            <input class="m-input" type="text" />
+            <div class="btn-group-lg d-flex justify-content-center">
+                <button class="m-btn m-btn-sm">Enviar Convite</button>
+            </div>
+            <div class="errortext">
+                @if(TempData["Error"] != null)
+                {
+                    <p>@TempData["Error"]</p>
+                }
+            </div>
+        </form>
     </div>
 </div>
-
-<script>
-    window.addEventListener('click', function (e){
-        if(!document.getElementById('iInviteContactCreate').contains(e.target)){
-            closeInviteListBox('iInviteContactCreate');
-        }
-    })
-</script>

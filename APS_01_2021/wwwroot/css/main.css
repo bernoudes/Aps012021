@@ -4,10 +4,11 @@
     --color-two: #7D7D7D;
     --color-three: #FFFFFF;
     --color-four: #bbbbbb;
+    --color-five: white;
     --background-color-one: #191919;
     --background-color-two: #7D7D7D;
     --scrollbar-color-one: #AEAEAE;
-    --scrollbar-color-two: #383838; 
+    --scrollbar-color-two: #383838;
     --text-color-one: #AEAEAE;
     --text-color-two: #FFFFFF;
     --text-color-three: #383838;
@@ -17,6 +18,9 @@
 }
 
 
+
+
+/*STRUCT ELEMENTS*/
 .all-page {
     background-color: var(--background-color-one);
     width: 100vb;
@@ -74,19 +78,55 @@
     border-radius: 20px;
 }
 
+/*--------------------------------------------------*/
+/*EXTERN BOX (POP UP)*/
 .m-extern-box {
     left: 50%;
     margin-left: -150px;
     margin-top: 50px; 
     position: absolute;
     background-color: var(--background-color-two);
-    border: solid 8px var(--color-four);
+    border: solid 4px var(--color-four);
     width: 350px;
     border-radius: 10px;
     z-index: 1;
 }
+.m-extern-box-title {
+    background-color: var(--title-box-color-one);
+    color: var(--text-color-two);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 10px;
+}
+.m-extern-box-content {
+    background-color: var(--color-one);
+    color: var(--text-color-one);
+    padding: 0px 10px;
+    overflow-y: scroll;
+}
 
-/*SIMPLE ELEMENTS*/
+/*--------------------------------------------------*/
+/*BUTTONS AREA*/
+.m-btn, m-btn:focus {
+    margin: 10px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    padding: 4px 10px;
+    border-radius: 10px;
+    color: var(--color-five);
+    background-color: var(--color-two);
+}
+    .m-btn:hover {
+        color: var(--color-two);
+        background-color: var(--color-five);
+    }
+
+.m-btn-sm {
+    font-size: 12pt;
+}
+
 .m-button,
 .m-button:focus {
     background-color: var(--title-box-color-one);
@@ -94,19 +134,37 @@
     outline: none;
     border: none;
 }
-
-.m-button:hover {
-    background-color: var(--color-one);
-    border: solid 2px var(--text-color-two);
-    border-radius: 5px;
-}
+    .m-button:hover {
+        background-color: var(--color-one);
+        border: solid 2px var(--text-color-two);
+        border-radius: 5px;
+    }
 
 .m-btn-passion {
-    background-color: var(--color-two); 
+    background-color: var(--color-two);
     border: solid 2px var(--text-color-two);
     border-radius: 5px;
     margin: 10px;
 }
+
+/*--------------------------------------------------*/
+/*INPUT TEXT AREA*/
+.m-input, .m-input:focus{
+    margin: 2px auto 2px 5px;
+    border: none;
+    border-radius: 4px;
+    outline:none;
+    font-weight: bold;
+    color: var(--color-one);
+    background-color: var(--color-five);
+}
+
+
+
+/*--------------------------------------------------*/
+
+
+
 
 .login-area{
     color: var(--text-color-two);

@@ -1,0 +1,22 @@
+﻿/*BUTTONS AREA STRUCTS AND STYLES*/
+.m-btn, m-btn:focus {
+    margin: 10px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    padding: 4px 10px;
+    border-radius: 10px;
+    color: var(--color-five);
+    background-color: var(--color-two);
+}
+
+.m-btn:hover {
+    color: var(--color-two);
+    background-color: var(--color-five);
+}
+
+.m-btn-sm {
+    font-size: 12pt;
+}
+
+/*INPUT TEXT AREA STRUCTS AND STYLES*/
