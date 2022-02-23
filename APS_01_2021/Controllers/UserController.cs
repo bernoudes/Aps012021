@@ -15,9 +15,9 @@ namespace APS_01_2021.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserServices _userService;
+        private readonly UserService _userService;
 
-        public UserController(UserServices userService)
+        public UserController(UserService userService)
         {
             _userService = userService; 
         }

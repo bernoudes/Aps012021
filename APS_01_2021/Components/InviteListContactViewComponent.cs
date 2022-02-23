@@ -8,9 +8,9 @@ namespace APS_01_2021.Components
 {
     public class InviteListContactViewComponent : ViewComponent
     {
-        private readonly InviteListContactServices _invite;
+        private readonly InviteContactService _invite;
 
-        public InviteListContactViewComponent(InviteListContactServices invite) 
+        public InviteListContactViewComponent(InviteContactService invite) 
         {
             _invite = invite;
         }

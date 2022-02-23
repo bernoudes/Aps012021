@@ -6,8 +6,8 @@ namespace APS_01_2021.Data
     public class MyDbContext : DbContext
     {
         public DbSet<UserModel> User { get; set; }
-        public DbSet<InviteListContactModel> InviteListContact { get; set; }
-        public DbSet<InviteListMeetingModel> InviteListMeeting { get; set; }
+        public DbSet<InviteContactModel> InviteContact { get; set; }
+        public DbSet<InviteMeetingModel> InviteMeeting { get; set; }
         public DbSet<ContactModel> Contact { get; set; }
 
         public MyDbContext(DbContextOptions<MyDbContext> options)

@@ -7,11 +7,11 @@ using System;
 
 namespace APS_01_2021.Services
 {
-    public class UserServices
+    public class UserService
     {
         private MyDbContext _context;
 
-        public UserServices(MyDbContext context)
+        public UserService(MyDbContext context)
         {
             _context = context;
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using APS_01_2021.Models;
+using APS_01_2021.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace APS_01_2021.Controllers
@@ -8,11 +10,6 @@ namespace APS_01_2021.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult Create()
-        {
-            return ViewComponent("InviteContactCreate");
         }
     }
 }

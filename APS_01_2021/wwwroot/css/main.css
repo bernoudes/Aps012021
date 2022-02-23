@@ -94,6 +94,7 @@
 .m-extern-box-title {
     background-color: var(--title-box-color-one);
     color: var(--text-color-two);
+    border-radius:10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,6 +102,7 @@
 }
 .m-extern-box-content {
     background-color: var(--color-one);
+    border-radius: 0px 0px 10px 10px;
     color: var(--text-color-one);
     padding: 0px 10px;
     overflow-y: scroll;
@@ -159,28 +161,26 @@
     background-color: var(--color-five);
 }
 
-
-
 /*--------------------------------------------------*/
 
-
-
+/*--------------------------------------------------*/
+/*TEXT AREA*/
+.text-area {
+    background-color: var(--textarea-color-one);
+    color: var(--text-color-three);
+    border-radius: 10px; 
+    outline: none;
+}
+    .text-area::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-color-two);
+        border-radius: 10px;
+    }
+/*--------------------------------------------------*/
 
 .login-area{
     color: var(--text-color-two);
 }
 
-.text-area {
-    background-color: var(--textarea-color-one);
-    color: var(--text-color-three);
-    border-radius: 10px;
-    outline: none;
-}
-
-.text-area::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-color-two);
-    border-radius: 10px;
-}
 
 
 a, a:active, a:focus, a:hover{
@@ -193,6 +193,7 @@ a, a:active, a:focus, a:hover{
     color: var(--color-error-text);
 }
 
+/*--------------------------------------------------*/
 /*SCROLL BAR STYLES*/
 ::-webkit-scrollbar {
     width: 10px;
@@ -210,4 +211,5 @@ a, a:active, a:focus, a:hover{
 ::-webkit-scrollbar-button:decrement,
 ::-webkit-scrollbar-button:end:increment{
     display:none;
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}
+/*--------------------------------------------------*/

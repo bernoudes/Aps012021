@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace APS_01_2021.Models
 {
     [Table("MEETING_INVITE")]
-    public class InviteListMeetingModel
+    public class InviteMeetingModel
     {
         public int Id { get; set; }
         [Column("MEETING_ID")]

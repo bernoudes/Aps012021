@@ -48,10 +48,10 @@ namespace APS_01_2021
                     options.UseMySql(connection, ServerVersion.AutoDetect(connection),
                     builder => builder.MigrationsAssembly("APS_01_2021")));
 
-            services.AddScoped<UserServices>();
-            services.AddScoped<InviteListContactServices>();
-            services.AddScoped<InviteListContactServices>();
-            services.AddScoped<ContactServices>();
+            services.AddScoped<UserService>();
+            services.AddScoped<InviteContactService>();
+            services.AddScoped<InviteMeetingService>();
+            services.AddScoped<ContactService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

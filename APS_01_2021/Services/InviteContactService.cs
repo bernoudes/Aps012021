@@ -8,12 +8,12 @@ using System.Collections.Generic;
 
 namespace APS_01_2021.Services
 {
-    public class InviteListContactServices
+    public class InviteContactService
     {
         private MyDbContext _context;
-        private UserServices _userservice;
+        private UserService _userservice;
 
-        public InviteListContactServices(MyDbContext context, UserServices userservice)
+        public InviteContactService(MyDbContext context, UserService userservice)
         {
             _context = context;
             _userservice = userservice;
@@ -27,8 +27,8 @@ namespace APS_01_2021.Services
                 var userid = await _userservice.FindIdByNickName(user.NickName);
                 if (contactid != 0 && userid != 0)
                 {
-                    InviteListContactModel inviteListContact =
-                        new InviteListContactModel() {
+                    InviteContactModel inviteListContact =
+                        new InviteContactModel() {
                             ContactOneId = userid,
                             ContactTwoId = contactid,
                             DateReference = DateTime.Now
@@ -40,10 +40,10 @@ namespace APS_01_2021.Services
         }
 
         /*FIND METHODS*/
-        public async Task<List<InviteListContactModel>> FindAllByNickName(string nickname)
+        public async Task<List<InviteContactModel>> FindAllByNickName(string nickname)
         {
             var userid = await _userservice.FindIdByNickName(nickname);
-            var listUsers =  await _context.InviteListContact
+            var listUsers =  await _context.InviteContact
                 .Where(x => x.ContactTwoId == (int) userid && x.IsAccept == "NOT_RESP")
                 .ToListAsync();
 

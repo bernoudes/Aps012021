@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace APS_01_2021.Services
 {
-    public class ContactServices
+    public class ContactService
     {
         private MyDbContext _context;
-        private UserServices _userServices;
+        private UserService _userServices;
 
-        public ContactServices(MyDbContext context, UserServices userServices)
+        public ContactService(MyDbContext context, UserService userServices)
         {
             _context = context;
             _userServices = userServices;
