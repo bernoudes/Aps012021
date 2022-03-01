@@ -25,9 +25,24 @@ function OpenComponentPopUp(UrlAction, idresultBox) {
     });
 }
 
+function sendInfoComponentPopUp(e, url, idmessage) {
+    e.preventDefault()
+    document.getElementById(idmessage).innerHTML = `<p>Espere...</p>`
+    $.ajax({
+        method: 'POST',
+        url: url
+    }).done(function (data, statusText, xhdr) {
+        if (idmessage != null && data.message != null) {
+            document.getElementById(idmessage).innerHTML = `<p>${data.message}</p>`
+        }
+    }).fail(function (xhdr, statusText, errorText) {
+        $(idresultBox).text(JSON.stringify(xhdr));
+    });
+}
+
 function ClosePopUpBoxById(boxid)
 {
-    document.getElementById(boxid).style.display = 'none';
+    document.getElementById(boxid).remove()
 }
 
 function CloseAllPopUpBox()

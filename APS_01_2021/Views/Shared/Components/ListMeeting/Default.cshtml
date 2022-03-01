@@ -1,4 +1,5 @@
-﻿@{ 
+﻿@model IEnumerable<APS_01_2021.Models.InviteMeetModel>
+@{ 
     Layout = null;
 }
 
@@ -6,7 +7,9 @@
     <div class="m-block-title">
         Reunião
         <div class="m-block-button-group">
-            <button class="m-block-title-button m-button">Criar</button>
+            <button type="button"  class="m-block-title-button m-button" onclick="OpenInviteMeet()"> 
+                Criar 
+            </button>
             <button class="m-block-title-button m-button">Deletar</button>
         </div>
     </div>
@@ -33,4 +36,13 @@
             }
         }
     </div>
+    <div id="results"></div>
 </div>
+
+<script>
+    function OpenInviteMeet(){
+        console.log("Open Here")
+        OpenComponentPopUp('@Url.Action("Create","InviteMeet")', '#results')
+    }
+    //ata-url="
+</script>

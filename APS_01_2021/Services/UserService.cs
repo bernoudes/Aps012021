@@ -2,8 +2,12 @@
 using APS_01_2021.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using App.Services.Exceptions;
 using System;
+using System.Linq;
+
+
 
 namespace APS_01_2021.Services
 {
@@ -56,6 +60,7 @@ namespace APS_01_2021.Services
                 throw new IntegrityException(ex.Message);
             }
         }
+        //------------------------------------------------------------
 
         //FIND
         public async Task<String> FindNickNameById(int id)

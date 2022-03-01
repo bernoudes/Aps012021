@@ -7,23 +7,23 @@ using System.Collections.Generic;
 
 namespace APS_01_2021.Services
 {
-    public class InviteMeetingService
+    public class InviteMeetService
     {
         private MyDbContext _context;
         private UserService _userServices;
 
-        public InviteMeetingService( MyDbContext context, UserService userServices)
+        public InviteMeetService( MyDbContext context, UserService userServices)
         {
             _context = context;
             _userServices = userServices;
         }
 
-        public async Task<InviteMeetingModel> FindByIdAsync(int id)
+        public async Task<InviteMeetModel> FindByIdAsync(int id)
         {
             return await _context.InviteMeeting.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<List<InviteMeetingModel>> FindAllByNickName(string nickName)
+        public async Task<List<InviteMeetModel>> FindAllByNickName(string nickName)
         {
             var userid = await _userServices.FindIdByNickName(nickName);
 

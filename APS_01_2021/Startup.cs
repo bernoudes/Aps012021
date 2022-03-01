@@ -50,7 +50,7 @@ namespace APS_01_2021
 
             services.AddScoped<UserService>();
             services.AddScoped<InviteContactService>();
-            services.AddScoped<InviteMeetingService>();
+            services.AddScoped<InviteMeetService>();
             services.AddScoped<ContactService>();
         }
 

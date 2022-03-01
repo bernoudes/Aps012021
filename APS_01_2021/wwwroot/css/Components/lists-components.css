@@ -126,3 +126,31 @@
     background-color: var(--color-three);
     color: var(--color-one);
 }
+
+/*---------------------------------------------------*/
+/*MeetingCreate*/
+.invite-meet-datetime-area{
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: var(--color-two); 
+}
+.invite-meet-contact-area {
+    padding: 8px 0px;
+    border-radius: 5px;
+    height: 200px;
+    overflow-y:scroll;
+    color: var(--color-five);
+    background-color: var(--color-two);
+}
+.invite-meet-contact-area > div:nth-child(n){
+    padding: 2px 15px;
+}
+    .invite-meet-contact-area > div:nth-child(n) > label {
+        margin-right: auto; 
+    }
+
+.invite-meet-contact-area > div:nth-child(2n+1){
+    color: var(--color-one);
+    background-color: var(--color-four);
+}

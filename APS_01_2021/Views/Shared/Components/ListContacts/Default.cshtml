@@ -7,7 +7,7 @@
     <div class="m-block-title">
         Contatos
         <div class="m-block-button-group">
-            <button type="button"  id="icontactcreate" onclick="openpopup()"> 
+            <button type="button"  class="m-block-title-button m-button" onclick="OpenInviteContact()"> 
                 Criar 
             </button>
 
@@ -43,8 +43,8 @@
 </div>
 
 <script>
-    function openpopup(){
-        OpenComponentPopUp('@Url.Action("Create","Contact")', '#results')
+    function OpenInviteContact(){
+        OpenComponentPopUp('@Url.Action("Create","InviteContact")', '#results')
     }
     //ata-url="
 </script>

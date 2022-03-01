@@ -1,10 +1,12 @@
 ﻿using APS_01_2021.Data;
 using APS_01_2021.Models;
+using APS_01_2021.Services;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using App.Services.Exceptions;
 
 namespace APS_01_2021.Services
 {
@@ -19,23 +21,24 @@ namespace APS_01_2021.Services
             _userservice = userservice;
         }
         
-        public async Task InsertByNickName(UserModel user, string contactnickname)
+        public async Task InsertAsync(InviteContactModel inviteContact)
         {
-            if(user != null && user.NickName != null && contactnickname != null)
-            {
-                var contactid = await _userservice.FindIdByNickName(contactnickname);
-                var userid = await _userservice.FindIdByNickName(user.NickName);
-                if (contactid != 0 && userid != 0)
+            var exist = _context.InviteContact
+                .Where(x => x.ContactOneId == inviteContact.ContactOneId || x.ContactTwoId == inviteContact.ContactOneId)
+                .Where(x => x.ContactOneId == inviteContact.ContactTwoId || x.ContactTwoId == inviteContact.ContactTwoId)
+                .FirstOrDefault();
+
+            if(inviteContact != null && exist == null)
+            { 
+                if (inviteContact.ContactOneId != 0 || inviteContact.ContactTwoId != 0)
                 {
-                    InviteContactModel inviteListContact =
-                        new InviteContactModel() {
-                            ContactOneId = userid,
-                            ContactTwoId = contactid,
-                            DateReference = DateTime.Now
-                        };
-                    _context.Add(inviteListContact);
+                    _context.Add(inviteContact);
                     await _context.SaveChangesAsync();
                 }
+            }
+            else
+            {
+                throw new Exception("InviteExists");
             }
         }
 
