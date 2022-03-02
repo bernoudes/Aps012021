@@ -146,9 +146,6 @@
 .invite-meet-contact-area > div:nth-child(n){
     padding: 2px 15px;
 }
-    .invite-meet-contact-area > div:nth-child(n) > label {
-        margin-right: auto; 
-    }
 
 .invite-meet-contact-area > div:nth-child(2n+1){
     color: var(--color-one);

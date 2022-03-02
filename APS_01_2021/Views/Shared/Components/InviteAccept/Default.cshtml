@@ -1,0 +1,13 @@
+﻿<div class="m-extern-box" id="iInviteAccept">
+    <div class="m-extern-box-title">Convites</div>
+    <div class="m-extern-box-content">
+         @await Component.InvokeAsync("InviteContactList")
+         @await Component.InvokeAsync("InviteMeetList")
+    </div>
+</div>
+
+<script>
+    window.onload = function(e){
+        listBoxCloseClick.push("iInviteAccept")
+    }
+</script>

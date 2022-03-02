@@ -1,4 +1,5 @@
-﻿>@{
+﻿@model APS_01_2021.Models.ViewModel.InviteMeetViewModel
+@{
     Layout = null;
 }
 
@@ -8,66 +9,29 @@
         <form onsubmit="UpdateInviteMeetCreate(event)">
             <label>Criar:</label>
             <div class="invite-meet-datetime-area">
-                <input type="date" />
-                <input type="time" />
+                <input type="date" asp-for="MeetingDate"/>
+                <input type="time" asp-for="MeetingTime"/>
             </div>
             
             <label>Contatos:</label>
-            <div class="invite-meet-contact-area">
-                <div>
-                    <label>Contato:</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-                <div>
-                    <label>Contato</label>
-                    <input type="checkbox" />
-                </div>
-            </div>
-
+            @{
+                if(Model.ContactList.Count > 0)
+                {
+                    foreach(var item in Model.ContactList)
+                    {
+                        <div>
+                            <input type="checkbox" asp-for="@item.Invited"/>
+                            <label>@item.UserNickName</label>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div>
+                        Você ainda não tem contatos
+                    </div>
+                }
+            }
             <div id="imessage_area"></div>
             <div class="btn-group-lg d-flex justify-content-center">
                 <button class="m-btn m-btn-sm" type="submit">Criar Reunião</button>

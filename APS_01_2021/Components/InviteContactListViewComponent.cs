@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace APS_01_2021.Components
 {
-    public class InviteListContactViewComponent : ViewComponent
+    public class InviteContactListViewComponent : ViewComponent
     {
         private readonly InviteContactService _invite;
 
-        public InviteListContactViewComponent(InviteContactService invite) 
+        public InviteContactListViewComponent(InviteContactService invite) 
         {
             _invite = invite;
         }

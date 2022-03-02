@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace APS_01_2021.Components
 {
-    public class InviteListMeetingViewComponent : ViewComponent
+    public class InviteMeetListViewComponent : ViewComponent
     {
         /*private InviteListMeetingServices _inviteService;
 

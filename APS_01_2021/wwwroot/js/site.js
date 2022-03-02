@@ -26,8 +26,12 @@ function OpenComponentPopUp(UrlAction, idresultBox) {
 }
 
 function sendInfoComponentPopUp(e, url, idmessage) {
-    e.preventDefault()
-    document.getElementById(idmessage).innerHTML = `<p>Espere...</p>`
+    if (e != null) {
+        e.preventDefault()
+    }
+    if (idmessage != null) {
+        document.getElementById(idmessage).innerHTML = `<p>Espere...</p>`
+    }
     $.ajax({
         method: 'POST',
         url: url

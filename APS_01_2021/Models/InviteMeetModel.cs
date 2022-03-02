@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APS_01_2021.Models
@@ -18,7 +19,5 @@ namespace APS_01_2021.Models
 
         [NotMapped]
         public string AdminUserNickName { get; set; }
-        [NotMapped]
-        public DateTime Meeting_Time { get; set; }
     }
 }

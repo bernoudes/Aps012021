@@ -1,0 +1,45 @@
+﻿@model IEnumerable<APS_01_2021.Models.InviteContactModel>
+@{
+    Layout = null;
+}
+
+<div class="m-intern-block invite-intern-box">
+    <div class="m-block-title">Convites Contatos</div>
+    @{
+        if (Model.FirstOrDefault() == null)
+        {
+            <div class="invite-content d-flex justify-content-center align-items-center ">
+                <p><bold>Você não tem convites</bold></p>
+            </div>
+
+        }
+        else
+        {
+            <div class="l-contact-content invite-content">
+                @foreach (var item in Model)
+                {
+                    <div class="invite-line">
+                        <label>@item.ContactOneNickName</label>
+                        <div class="invite-bts-line-group">
+                            <button class="m-button invite-bts-line" 
+                                onclick="InviteAccept('@item.ContactOneNickName')">aceitar</button>
+                            <button class="m-button invite-bts-line" 
+                                onclick="InviteReject('@item.ContactOneNickName')">rejeitar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+<script>
+    function InviteAccept(nickname){
+        console.log(nickname)
+        sendInfoComponentPopUp()
+    }
+
+    function InviteReject(nickname){
+        console.log(nickname)
+    }
+</script>
