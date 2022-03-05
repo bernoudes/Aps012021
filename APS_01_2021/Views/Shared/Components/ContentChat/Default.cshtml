@@ -4,8 +4,8 @@
 
 <div class="chat-content">
     <div class="chat-content-side">
-        @await Component.InvokeAsync("ListContacts")
-        @await Component.InvokeAsync("ListMeeting") 
+        @await Component.InvokeAsync("ContactList")
+        @await Component.InvokeAsync("MeetList") 
     </div>
     <div class="chat-content-main">
         @await Component.InvokeAsync("ChatMessage")

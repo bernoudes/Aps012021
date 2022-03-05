@@ -13,48 +13,5 @@
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script>
-    "use strict"
-
-    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-    var username = "";
-
-    //Disable send button until connection is established
-    document.getElementById("SendButton").disabled = true;
-
-    //Receive Messages
-    connection.on("ReceiveMessage", function (user,message) {
-        /*var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");*/
-
-        var messagediv = document.createElement("div");
-        var nameparagraph =  "<p> Bernardo </p>";
-        var messageparagraph = "<p>" + message + "</p>";
-        var timeparagraph = "<p> horário: 04:05 - 10/05/2021 </p>";
-
-        //firstdiv.classList.add("user");
-        messagediv.classList.add("chat-message-content");
-
-        messagediv.innerHTML = nameparagraph + messageparagraph + timeparagraph;
-        
-        document.getElementById("chat_area").appendChild(messagediv);
-    })
-  
-    //WHEN TO START CONNECTION
-    connection.start().then(function(){
-        document.getElementById("SendButton").disabled = false;
-    }).catch(function(err){
-        return console.error(err.toString());
-    })
-
-    //SEND MESSAGE
-    document.getElementById("SendButton").addEventListener("click", function (event) {
-        var message = document.getElementById("message").value;
-
-        connection.invoke("SendMessage", username, message).then(function (){
-            document.getElementById("message").value = "";
-        }).catch(function (err){
-            return console.error(err.toString());
-        });
-
-        event.preventDefault();
-    })
+   
 </script>

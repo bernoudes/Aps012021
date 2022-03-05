@@ -23,17 +23,15 @@ namespace APS_01_2021.Controllers
         {
             return ViewComponent("InviteContactCreate");
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(string contactNickName)
         {
             string message = "Nhc";
 
-            var userNickname = User.Claims.First().Value;
-            var userid =  await _userServise.FindIdByNickName(userNickname);
-            var contactid = await _userServise.FindIdByNickName(contactNickName);
-            var inviteContact = new InviteContactModel { ContactOneId = userid, ContactTwoId = contactid };
+            var invite = await GetUserAndContactId(contactNickName);
 
-            if (userid == 0 || contactid == 0)
+            if (invite == null)
             {
                 message = "Usuário Não encontrado";
             }
@@ -41,7 +39,7 @@ namespace APS_01_2021.Controllers
             {
                 try
                 {
-                    await _inviteContactService.InsertAsync(inviteContact);
+                    await _inviteContactService.InsertAsync(invite);
                     message = "Convite Enviado";
                 }
                 catch(Exception)
@@ -62,6 +60,35 @@ namespace APS_01_2021.Controllers
             return ViewComponent("InviteContactList");
         }
         //------------------------------------------------------
+        [HttpPost]
+        public async Task<IActionResult> Accept(string contactNickName)
+        {
+            return await AcceptAuxiliary(contactNickName, true);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Reject(string contactNickName)
+        {
+            return await AcceptAuxiliary(contactNickName, false);
+        }
+
+        private async Task<IActionResult> AcceptAuxiliary(string nickname,bool type)
+        {
+            var message = "none";
+            var invite = await GetUserAndContactId(nickname);
+
+            if (invite == null)
+            {
+                message = "Erro, Contate o serviço n°....";
+            }
+            else
+            {
+                message = await _inviteContactService.Accepting(invite, type);
+            }
+
+            return Json(new { message = message });
+        }
+
+        //------------------------------------------------------
         public IActionResult Delete()
         {
             return ViewComponent("Delete");
@@ -72,6 +99,19 @@ namespace APS_01_2021.Controllers
             return View();
         }*/
         //------------------------------------------------------
+        private async Task<InviteContactModel> GetUserAndContactId(string contactNickName)
+        {
+            var userNickname = User.Claims.First().Value;
+            var userid = await _userServise.FindIdByNickName(userNickname);
+            var contactid = await _userServise.FindIdByNickName(contactNickName);
+            var inviteContact = new InviteContactModel { ContactOneId = contactid, ContactTwoId = userid };
 
+            if(userid == 0 || contactid == 0)
+            {
+                return null;
+            }
+
+            return inviteContact;
+        }
     }
 }

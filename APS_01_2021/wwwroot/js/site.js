@@ -3,12 +3,13 @@
 
 // Write your JavaScript code.
 
-var listBoxCloseClick = [];
+const listBoxCloseClick = [];
 
 window.addEventListener('click', function (e) {
-    listBoxCloseClick.forEach(x => {
-        if (!document.getElementById(x).contains(e.target)) {
-            ClosePopUpBoxById(x);
+    listBoxCloseClick.forEach((item, index, object) => {
+        if (!document.getElementById(item).contains(e.target)) {
+            ClosePopUpBoxById(item);
+            object.splice(index, 1);
         }
     })
 })
@@ -23,6 +24,21 @@ function OpenComponentPopUp(UrlAction, idresultBox) {
     }).fail(function (xhdr, statusText, errorText) {
         $(idresultBox).text(JSON.stringify(xhdr));
     });
+}
+
+async function SendInfoComponentPopUpReturnData(url) {
+    var message = "none"
+    await $.ajax({
+        method: 'POST',
+        url: url
+    }).done(function (data, statusText, xhdr) {
+        if (data.message != null) {
+            message = data.message;
+        }
+    }).fail(function (xhdr, statusText, errorText) {
+        $(idresultBox).text(JSON.stringify(xhdr));
+    });
+    return message;
 }
 
 function sendInfoComponentPopUp(e, url, idmessage) {

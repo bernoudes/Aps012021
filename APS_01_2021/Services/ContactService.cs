@@ -18,6 +18,30 @@ namespace APS_01_2021.Services
             _userServices = userServices;
         }
 
+        /*create*/
+        public async Task<string> InsertAsync(ContactModel contact)
+        {
+            if (contact == null || contact.UserOneId == 0 || contact.UserTwoId == 0)
+            {
+                return "PARAMETER_ERROR";
+            }
+
+            /*checking existence*/
+            var contactResult = await _context.Contact
+                .Where(x => x.UserOneId == contact.UserOneId || x.UserOneId == contact.UserTwoId)
+                .Where(x => x.UserTwoId == contact.UserOneId || x.UserTwoId == contact.UserTwoId)
+                .FirstOrDefaultAsync();
+
+            if (contactResult == null)
+            {
+                _context.Add(contact);
+                await _context.SaveChangesAsync();
+                return "OK";
+            }
+
+            return "CONTACT_EXISTS";
+        }
+
         public async Task<List<ContactModel>> FindAllByNickName(string nickName)
         {
             var userid = await _userServices.FindIdByNickName(nickName);
@@ -33,7 +57,7 @@ namespace APS_01_2021.Services
                 }
                 else
                 {
-                    item.ContactNickName = await _userServices.FindNickNameById(item.UserTwoId);
+                    item.ContactNickName = await _userServices.FindNickNameById(item.UserOneId);
                 }
             }
 

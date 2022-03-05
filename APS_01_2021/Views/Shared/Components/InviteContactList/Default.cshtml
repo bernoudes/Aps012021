@@ -18,7 +18,7 @@
             <div class="l-contact-content invite-content">
                 @foreach (var item in Model)
                 {
-                    <div class="invite-line">
+                    <div class="invite-line" id="ibts-invite-@item.ContactOneNickName">
                         <label>@item.ContactOneNickName</label>
                         <div class="invite-bts-line-group">
                             <button class="m-button invite-bts-line" 
@@ -34,12 +34,22 @@
 </div>
 
 <script>
-    function InviteAccept(nickname){
-        console.log(nickname)
-        sendInfoComponentPopUp()
+    async function InviteAccept(nickname)
+    {
+        var url = '@Url.Action("Accept", "InviteContact")?contactNickName='+ nickname
+        var result = await SendInfoComponentPopUpReturnData(url)
+        if (result = "OK")
+        {
+            document.getElementById(`ibts-invite-${nickname}`).remove()
+        }
     }
 
-    function InviteReject(nickname){
-        console.log(nickname)
+    async function InviteReject(nickname){
+        var url = '@Url.Action("Reject", "InviteContact")?contactNickName='+ nickname
+        var result = await SendInfoComponentPopUpReturnData(url)
+        if (result = "OK")
+        {
+            document.getElementById(`ibts-invite-${nickname}`).remove()
+        }
     }
 </script>
