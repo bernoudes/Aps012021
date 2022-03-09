@@ -6,12 +6,11 @@
     <div class="chat-message-area" id="chat_area">
     </div>
     <div class="chat-message-text-area">
-         <textarea id="message" class="chat-message-text-input text-area" rows="2"></textarea>
-         <button class="chat-message-send-button  m-button" id="SendButton">Send</button>
+         <textarea id="message-box" class="chat-message-text-input text-area" rows="2"></textarea>
+         <button class="chat-message-send-button  m-button" id="SendButton" onclick="ActMessage().SendMessage()">
+            Enviar
+        </button>
     </div>
 </div>
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script>
-   
-</script>

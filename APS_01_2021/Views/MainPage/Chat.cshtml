@@ -16,5 +16,14 @@
 </div>
 
 <script>
-    OpenConnection()
+    "use strict"
+
+    var conn = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+    var username = "";
+
+    conn.start().then(function () {
+        console.log('Iniciado')
+    }).catch(function (err) {
+        return console.error(err.toString());
+    })
 </script>

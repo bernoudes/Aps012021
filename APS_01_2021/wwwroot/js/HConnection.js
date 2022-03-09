@@ -12,7 +12,7 @@
             envio e recebimento de mensagem
  */
 //--------------------------------------------------------------------------
-/*UPDATERS STATUS*/
+/*UPDATERS STATUS
 function SendMyOnlineStatus(connection, status) {
     connection.invoke("SendMyOnlineStatus", status)
         .then(() => "OK")
@@ -75,123 +75,6 @@ function StartChatConnection(connection) {
     let contact = GetAllTheContactsAndStatus()
 }
 
-//--------------------------------------------------------------------------
-//-------------------------------STRUCT AREA--------------------------------
-//--------------------------------------------------------------------------
-function Messages(connection) {
-    const ActionStart = (functionAction) => {
-        let check = false
-        connection.start()
-            .then(functionAction())
-            .catch(err => check = false)
-        return check
-    }
-
-    const SendMessage = (message) => {
-        let check = false
-        connection.invoke("SendMessage", room, message)
-            .then(check = true)
-            .catch(err => check = false)
-        return check
-    }
-
-    const ReceiveMessage = (functionAction) => {
-        let check = false
-        connection.on("ReceiveMessage", functionAction())
-            .then( check = true )
-            .catch(err => check = false)
-        return check
-    }
-
-    const SelectChatContact = (contact) => {
-        let check = true
-        connection.invoke("SelectChatContact", contact)
-            .catch(err => check = false)
-    }
-
-    const SelectChatMeet = (meet) => {
-        let check = true
-        connection.invoke("SelectChatMeet", meet)
-            .catch(err => check = false)
-    }
-
-    const ReceiveAllChat = (functionAction) => {
-        let check = true
-        connection.invoke("ReceiveAllChat", functionAction)
-            .then()
-    }
-
-    return { ActionStart, SendMessage, ReceiveMessage, GetChat }
-}
-
-//--------------------------------------------------------------------------
-function Contacts(connection) {
-    const ActionStart = (functionAction) => {
-        let check = true
-        connection.start()
-            .then(functionAction())
-            .catch(err => check = false)
-        return check
-    }
-
-    const InviteContact = (nickname) => {
-        let check = true
-        connection.invoke("InviteContact", nickname)
-            .then(check = true)
-            .catch(err => check = false)
-        return check
-    }
-
-    const ReceiveAllContact = (functionAction) => {
-        let check = true
-        connection.on("ReceiveContact", functionAction())
-            .catch(err => check = false)
-        return check
-    }
-
-    const ReceiveContactUpdate = (functionAction) => {
-        let check = true
-        connection.on("ReceiveContactUpdate", functionAction())
-            .catch(err => check = false)
-        return check
-    }
-    /*receber convite (ReciveContactInvite)*/
-
-    return { ActionStart, InviteContact, ReceiveAllContact, ReceiveContactUpdate }
-}
-
-//--------------------------------------------------------------------------
-
-function Meet(connection) {
-    const ActionStart = (functionAction) => {
-        let check = true
-        connection.start()
-            .then(functionAction())
-            .catch(err => check = false)
-        return check
-    }
-
-    const CreateMeet = (meetInfo) => {
-        let check = true
-        connection.invoke("CreateMeet", meetInfo)
-            .catch(err => false)
-        return false
-    }
-
-    const RemoveMeet = (meetInfo) => {
-        let check = true
-        connection.invoke("RemoveMeet", meetInfo)
-            .catch(err => false)
-    }
-
-    /*
-     Colocar
-     Update da reunião para que receba os convites ReceiveMeetInvite
-     Sair da reunião invoke
-     Deletar reunião (somente adm) invoke
-     */
-    return { ActionStart, InviteContact, ReceiveAllContact, ReceiveContactUpdate }
-}
 
 
 
@@ -255,6 +138,15 @@ function AddClassForOnlineStatus(element) {
 
 
 
+*/
+function OpenConnection() {
+    "use strict"
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+    var username = "";
+
+    return connection;
+}
 
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
