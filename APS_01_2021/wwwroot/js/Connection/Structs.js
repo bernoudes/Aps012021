@@ -1,7 +1,17 @@
 ﻿//--------------------------------------------------------------------------
 //-------------------------------STRUCT AREA--------------------------------
 //--------------------------------------------------------------------------
-function Messages(connection) {
+function Communication(url, data) {
+    const SendData = async () => {
+        await $.post(url, data)
+            .done(function () { return "OK" })
+            .catch(err => "Error")
+    }
+    return { SendData }
+}
+
+
+function Messages() {
     const ActionStart = (functionAction) => {
         let check = false
         connection.start()
@@ -10,50 +20,35 @@ function Messages(connection) {
         return check
     }
 
-    const SendMessage = (message) => {
+    const SendMessage = (url,message) => {
         let check = false
-        let room = ActContact().GetSelectedChat()
-        console.log(room)
+        let room = ActContactMeet().GetSelectedContactMeet()
+        let data = { type: room.type, receiver: room.receiver, message: message }
         // room { type : if is contact or meet, key : in contact nickname / in meet idMeeting}
         //type: user, and key: user for user
         
         if (room != null) {
-            connection.invoke("SendMessage", room.type, room.key, message)
-                .then(check = true)
-                .catch(err => check = false)
-                console.log(check)
-
+            let result = Communication(url, data).SendData()
+            check = result == "OK" ? true : false
         }
         return check
     }
 
-    const ReceiveMessage = (functionAction) => {
+    const SelectChatContact = (url, contact) => {
         let check = false
-        connection.on("ReceiveMessage", functionAction())
-            .then(check = true)
-            .catch(err => check = false)
-        return check
+        let data = { type: 'contact', receiver: contact }
+        let result = Communication(url, data).SendData()
+        check = result == "OK" 
     }
 
-    const SelectChatContact = (contact) => {
-        let check = true
-        connection.invoke("SelectChatContact", contact)
-            .catch(err => check = false)
+    const SelectChatMeet = (url,meet) => {
+        let check = false
+        let result = Communication(url, meet).SendData()
+        check = result == "OK"
     }
 
-    const SelectChatMeet = (meet) => {
-        let check = true
-        connection.invoke("SelectChatMeet", meet)
-            .catch(err => check = false)
-    }
 
-    const ReceiveAllChat = (functionAction) => {
-        let check = true
-        connection.invoke("ReceiveAllChat", functionAction)
-            .then()
-    }
-
-    return { ActionStart, SendMessage, ReceiveMessage, ReceiveAllChat, SelectChatMeet, SelectChatContact }
+    return { ActionStart, SendMessage, SelectChatMeet, SelectChatContact }
 }
 
 //--------------------------------------------------------------------------

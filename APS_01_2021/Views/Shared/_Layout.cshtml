@@ -21,11 +21,31 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/HConnection.js" asp-append-version="true"></script>
-    <script src="~/js/HConnection.js" asp-append-version="true"></script>
     <script src="~/js/Connection/ActionElement.js" asp-append-version="true"></script>
     <script src="~/js/Connection/Structs.js" asp-append-version="true"></script>
+     <script src="~/js/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+<script>
+    "use strict"
+
+    let conn = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+    let username = '@User.Identity.Name'
+    let contactmeetselected = ''
+
+    conn.start().then(function () {
+        console.log('Iniciado')
+    }).catch(function (err) {
+        return console.error(err.toString());
+    })
+
+    conn.on("ReceiveMessage", (data) => { ActMessage().ShowMessage(data) })
+    conn.on("ReceiveFullChatMessage", (data) => { ActMessage().ShowAllConversation(data) })
+
+
+</script>

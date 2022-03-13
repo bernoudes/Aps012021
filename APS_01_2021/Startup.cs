@@ -52,6 +52,7 @@ namespace APS_01_2021
             services.AddScoped<InviteContactService>();
             services.AddScoped<InviteMeetService>();
             services.AddScoped<ContactService>();
+            services.AddScoped<ChatMessageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

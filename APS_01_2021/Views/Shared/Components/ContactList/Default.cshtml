@@ -26,7 +26,10 @@
         {
             foreach(var item in Model)
             {
-                <div class="l-contacts-line @(item.IsSelected ? "select" :"") ">
+                <div class="l-contacts-line" id="idCont-@item.ContactNickName" 
+                onclick="ActContactMeet()
+                    .SelectContactMeet('contact','idCont-@item.ContactNickName','@Url.Action("GetConversation","ChatMessage")')">
+
                     <div class="l-contacts-ball 
                         @(item.StatusConnection == "ONLINE" ? "l-contacts-ball-online": "")
                         @(item.StatusConnection == "BUSY" ? "l-contacts-ball-busy": "")
@@ -43,6 +46,9 @@
 </div>
 
 <script>
+    
+
+
     function OpenInviteContact(){
         OpenComponentPopUp('@Url.Action("Create","InviteContact")', '#results')
     }

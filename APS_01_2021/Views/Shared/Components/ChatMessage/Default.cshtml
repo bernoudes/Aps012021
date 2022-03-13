@@ -7,10 +7,10 @@
     </div>
     <div class="chat-message-text-area">
          <textarea id="message-box" class="chat-message-text-input text-area" rows="2"></textarea>
-         <button class="chat-message-send-button  m-button" id="SendButton" onclick="ActMessage().SendMessage()">
+         <button class="chat-message-send-button  m-button" id="SendButton" 
+           onclick="ActMessage().SendMessage('@Url.Action("SendMessage","ChatMessage")')">
             Enviar
         </button>
     </div>
 </div>
 
-<script src="~/js/signalr/dist/browser/signalr.js"></script>

@@ -22,9 +22,11 @@ namespace APS_01_2021.Hubs
             //await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Signa")
             await base.OnDisconnectedAsync(exception);
         }
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string type, string receive, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+
+            var t = type;
+            await Clients.All.SendAsync("ReceiveMessage", receive, message);
         }
     }
 }

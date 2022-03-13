@@ -9,13 +9,13 @@ namespace APS_01_2021.Controllers
 {
     public class InviteContactController : Controller
     {
-        private UserService _userServise;
+        private UserService _userService;
         private InviteContactService _inviteContactService;
 
         public InviteContactController(UserService userService, InviteContactService inviteContactService)
         {
 
-            _userServise = userService;
+            _userService = userService;
             _inviteContactService = inviteContactService;
         }
 
@@ -102,8 +102,8 @@ namespace APS_01_2021.Controllers
         private async Task<InviteContactModel> GetUserAndContactId(string contactNickName)
         {
             var userNickname = User.Claims.First().Value;
-            var userid = await _userServise.FindIdByNickName(userNickname);
-            var contactid = await _userServise.FindIdByNickName(contactNickName);
+            var userid = await _userService.FindIdByNickName(userNickname);
+            var contactid = await _userService.FindIdByNickName(contactNickName);
             var inviteContact = new InviteContactModel { ContactOneId = contactid, ContactTwoId = userid };
 
             if(userid == 0 || contactid == 0)
