@@ -1,6 +1,5 @@
 ﻿function ActUser() {
     const IsCurrentUser = (nickname) => {
-        console.log(username + nickname)
         if (nickname == username) {
             return true
         }
@@ -18,25 +17,36 @@ function ActMessage() {
     }
 
     const ShowMessage = (data) => {
-        var messagediv = document.createElement("div");
-        var nameparagraph = `<p> ${data.whoSendMessage} </p>`;
-        var messageparagraph = `<p>${data.message}</p>`;
-        var timeparagraph = `<p> horário: ${data.time} </p>`;
+        let messagediv = document.createElement("div");
+        let chatareadiv = document.getElementById("chat_area");
+        let nameparagraph = `<p> ${data.whoSendMessage} </p>`;
+        let messageparagraph = `<p>${data.message}</p>`;
+        let timeparagraph = `<p> horário: ${data.time} </p>`;
+        let isCurrentUser = ActUser().IsCurrentUser(data.whoSendMessage)
+        let showMessage = false
 
-        messagediv.classList.add("chat-message-content");
-
-        if (ActUser().IsCurrentUser(data.whoSendMessage)) {
-            messagediv.classList.add("user");
-            messagediv.innerHTML = messageparagraph + timeparagraph;
-        } else {
-            messagediv.innerHTML = nameparagraph + messageparagraph + timeparagraph;
+        if (isCurrentUser || ActContactMeet().GetSelectedContactMeet().receiver == data.whoSendMessage) {
+            console.log("chegando aqui")
+            showMessage = true
         }
 
-        document.getElementById("chat_area").appendChild(messagediv);
+        if (showMessage) {
+            messagediv.classList.add("chat-message-content");
+
+            if (ActUser().IsCurrentUser(data.whoSendMessage)) {
+                messagediv.classList.add("user");
+                messagediv.innerHTML = messageparagraph + timeparagraph;
+            } else {
+                messagediv.innerHTML = nameparagraph + messageparagraph + timeparagraph;
+            }
+
+            chatareadiv.appendChild(messagediv);
+            chatareadiv.scrollTop = chatareadiv.scrollHeight;
+        }
     }
 
     const ShowAllConversation = (data) => {
-        var chatarea = document.getElementById("chat_area");
+        let chatarea = document.getElementById("chat_area");
         while (chatarea.firstChild) {
             chatarea.removeChild(chatarea.firstChild)
         };
@@ -51,13 +61,14 @@ function ActMessage() {
 }
 
 function ActContactMeet() {
+
     const GetSelectedContactMeet = () => {
  
         let room = { type: "contact", receiver: contactmeetselected.substring(7) }
         return room
     }
 
-    const SelectContactMeet = (type, contactmeetid,url) => {
+    const SelectContactMeet = (type, contactmeetid, url) => {
         if ( contactmeetselected != contactmeetid ) {
             let element = document.getElementById(contactmeetid)
             if (contactmeetselected != '') {
@@ -74,9 +85,21 @@ function ActContactMeet() {
         } else {
             Messages().SelectChatMeet(url,contactmeetid.substring(7))
         }
+
+        document.getElementById("message-box").value = "";
     }
 
-    return { GetSelectedContactMeet, SelectContactMeet }
+    const InviteContact = (url) => {
+        let inviteContact = document.getElementById("iInviteContactInput").value
+
+        if (inviteContact != null) {
+            Contacts().InviteContact(url, inviteContact)
+        }
+
+        document.getElementById("iInviteContactInput").value = ""
+    }
+
+    return { GetSelectedContactMeet, SelectContactMeet, InviteContact }
 }
 
 
