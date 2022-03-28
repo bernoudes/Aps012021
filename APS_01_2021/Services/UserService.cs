@@ -13,7 +13,7 @@ namespace APS_01_2021.Services
 {
     public class UserService
     {
-        private MyDbContext _context;
+        private readonly MyDbContext _context;
 
         public UserService(MyDbContext context)
         {
@@ -68,6 +68,19 @@ namespace APS_01_2021.Services
             var user = await _context.User.FirstOrDefaultAsync(x => x.Id == id);
             return user.NickName;
         }
+        public async Task<UserModel> FindNickNameAndStatusConnectionById(int id)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(x => x.Id == id);
+            var userresult = new UserModel() { NickName = user.NickName, StatusConnection = user.StatusConnection };
+            return userresult;
+        }
+
+        public async Task<String> FindStatusConnectionByNickNameAsync(string nickname)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(x => x.NickName == nickname);
+            return user.StatusConnection;
+        }
+
         public async Task<UserModel> FindByEmailAsync(string email)
         {
             return await _context.User.FirstOrDefaultAsync(x => x.Email == email);
@@ -86,5 +99,23 @@ namespace APS_01_2021.Services
             return user.Id;
         }
         //-------------------------------------------------------------
+
+        public async Task<String> UpdateStatusConnection(string user, string status)
+        {
+            try
+            {
+                var userobj = await FindByNickName(user);
+                userobj.StatusConnection = status.ToUpper();
+
+                _context.User.Update(userobj);
+                await _context.SaveChangesAsync();
+
+                return "OK";
+            }
+            catch(Exception )
+            {
+                throw new IntegrityException("Status Update Sem Sucesso");
+            }
+        }
     }
 }

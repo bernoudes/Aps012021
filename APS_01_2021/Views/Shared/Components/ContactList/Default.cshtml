@@ -3,18 +3,22 @@
     Layout = null;
 }
 
-<div class="m-intern-block l-contact-intern-box">
+<div class="m-intern-block l-contact-intern-box" id="icontactlist">
     <div class="m-block-title">
         Contatos
         <div class="m-block-button-group">
-            <button type="button"  class="m-block-title-button m-button" onclick="OpenInviteContact()"> 
+            <button type="button"  class="m-block-title-button m-button" 
+            onclick="ActContactMeet().CallInviteContactBox('@Url.Action("Create","InviteContact")')"> 
                 Criar 
             </button>
 
-            <button class="m-block-title-button m-button">Deletar</button>
+            <button type="button"  class="m-block-title-button m-button" 
+            onclick="ActContactMeet().CallDeleteContactBox('@Url.Action("Delete","Contact")')"> 
+                Deletar 
+            </button>
         </div>
     </div>
-    <div class="m-block-content l-contact-content">
+    <div class="m-block-content l-contact-content" id="il-contact-content">
     @{
         if(Model == null || !Model.Any())
         {
@@ -27,8 +31,7 @@
             foreach(var item in Model)
             {
                 <div class="l-contacts-line" id="idCont-@item.ContactNickName" 
-                onclick="ActContactMeet()
-                    .SelectContactMeet('contact','idCont-@item.ContactNickName','@Url.Action("GetConversation","ChatMessage")')">
+                onclick="onclickAux(this.id)">
 
                     <div class="l-contacts-ball 
                         @(item.StatusConnection == "ONLINE" ? "l-contacts-ball-online": "")
@@ -46,11 +49,12 @@
 </div>
 
 <script>
-    
-
-
-    function OpenInviteContact(){
-        OpenComponentPopUp('@Url.Action("Create","InviteContact")', '#results')
+    function onclickAux(itemid){
+        console.log(itemid)
+        ActContactMeet()
+            .SelectContactMeet(
+                'contact',
+                itemid,
+                '@Url.Action("GetConversation","ChatMessage")')
     }
-    //ata-url="
 </script>

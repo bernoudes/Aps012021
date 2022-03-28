@@ -20,7 +20,7 @@ namespace APS_01_2021.Components
 
 
             var userNickname = UserClaimsPrincipal.Claims.First().Value;
-            var list = await _contactService.FindAllByNickName(userNickname);
+            var list = await _contactService.FindAllByNickNameAsync(userNickname);
            
             return View(list);
         }

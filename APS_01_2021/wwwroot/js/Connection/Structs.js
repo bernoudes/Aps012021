@@ -1,16 +1,80 @@
 ﻿//--------------------------------------------------------------------------
 //-------------------------------STRUCT AREA--------------------------------
 //--------------------------------------------------------------------------
-function Communication(url, data) {
-    const SendData = async () => {
+
+function popUpStr() {
+    const ShowPopUp = (htmldata) => {
+        $("#popupParent").html(htmldata)
+        document.getElementById("popupCenterAux").style.zIndex = 1;
+        listBoxCloseClick.push(GetStringFirtIdText(htmldata))
+    }
+    const ClosePopUp = (boxid) => {
+        document.getElementById(boxid).remove()
+        document.getElementById("popupCenterAux").style.zIndex = -1;
+    }
+
+    const CloseAllPopUp = () => {
+        listBoxCloseClick.forEach(x => ClosePopUpBoxById(x))
+    }
+
+    return { ShowPopUp, ClosePopUp, CloseAllPopUp}
+}
+
+//--------------------------------------------------------------------------
+function Communication() {
+    const SendData = async (url, data) => {
         await $.post(url, data)
             .done(function () { return "OK" })
             .catch(err => "Error")
     }
-    return { SendData }
+
+    const SendOptionData = async (url, selectOption, extradata) =>
+    {
+        let data = { selectOption: selectOption, extradata: extradata }
+        SendData(url, data)
+        popUpStr().ClosePopUp("iOptionBox")
+    }
+
+    const CallPopupBox = async (url, data) => {
+        let result = ''
+        await $.get(url, data)
+            .done((datatwo) => {
+                popUpStr().ShowPopUp(datatwo)
+                result = "OK"
+            })
+            .fail((xhdr) => { result = 'fail' })
+        return result
+    }
+
+    const CallPopupBoxJsonData = (url, data) => {
+        let result = ''
+        $.ajax({
+            type: "GET",
+            data: JSON.stringify(data),
+            url: url,
+            contentType: "application/json"
+        });
+        return result
+    }
+
+    const ReloadBox = async (url,parentId,posInBox) => {
+        let result = ''
+        await $.get(url)
+            .done((datatwo) => {
+                let element = document.createElement("div")
+                element.innerHTML = datatwo
+
+                document.getElementById(parentId).appendChild(element)
+                result = "OK"
+            })
+            .fail((xhdr) => { result = 'fail' })
+        return result
+    }
+
+    return { SendData, CallPopupBox, CallPopupBoxJsonData, ReloadBox, SendOptionData }
 }
 
-
+//--------------------------------------------------------------------------
 function Messages() {
     const ActionStart = (functionAction) => {
         let check = false
@@ -28,7 +92,7 @@ function Messages() {
         //type: user, and key: user for user
         
         if (room != null) {
-            let result = Communication(url, data).SendData()
+            let result = Communication().SendData(url, data)
             check = result == "OK" ? true : false
         }
         return check
@@ -37,13 +101,13 @@ function Messages() {
     const SelectChatContact = (url, contact) => {
         let check = false
         let data = { type: 'contact', receiver: contact }
-        let result = Communication(url, data).SendData()
+        let result = Communication().SendData(url, data)
         check = result == "OK" 
     }
 
     const SelectChatMeet = (url,meet) => {
         let check = false
-        let result = Communication(url, meet).SendData()
+        let result = Communication().SendData(url, meet)
         check = result == "OK"
     }
 
@@ -61,12 +125,11 @@ function Contacts(connection) {
         return check
     }
 
-    const InviteContact = (nickname) => {
-        let check = true
-        connection.invoke("InviteContact", nickname)
-            .then(check = true)
-            .catch(err => check = false)
-        return check
+    const InviteContact = (url,nickname) => {
+        let check = false
+        let data = { nickname }
+        let result = Communication().SendData(url, data)
+        check = result == "OK"
     }
 
     const ReceiveAllContact = (functionAction) => {
@@ -82,9 +145,21 @@ function Contacts(connection) {
             .catch(err => check = false)
         return check
     }
+
+    const RefreshContacts = async (url) => {
+        let result = ''
+        await $.get(url)
+            .done((datatwo) => {
+                //pegar somente os elementos
+
+                result = "OK"
+            })
+            .fail((xhdr) => { result = 'fail' })
+        return result
+    }
     /*receber convite (ReciveContactInvite)*/
 
-    return { ActionStart, InviteContact, ReceiveAllContact, ReceiveContactUpdate }
+     return { ActionStart, InviteContact, ReceiveAllContact, ReceiveContactUpdate, RefreshContacts }
 }
 
 //--------------------------------------------------------------------------

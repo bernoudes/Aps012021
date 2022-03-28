@@ -1,0 +1,26 @@
+﻿@model APS_01_2021.Models.ViewModel.OptionBoxViewModel
+@{
+    Layout = null;
+}
+
+<div class="m-extern-box" id="iOptionBox">
+    <div class="m-extern-box-title">@Model.Title</div>
+    <div class="m-extern-box-content">
+        <p>@Model.Message</p>
+        <div class="btn-group-lg d-flex justify-content-center">
+            @foreach(var item in Model.OptionsMessage)
+            {
+                <button type="button"  class="m-btn m-btn-sm"
+                onclick="Communication().SendOptionData('@Url.Action(Model.MethodReturn,Model.ControllerReturn)',`@item`,`@Model.ExtraData`)"> 
+                    @item
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function(e){
+        listBoxCloseClick.push("iOptionBox")
+    }
+</script>

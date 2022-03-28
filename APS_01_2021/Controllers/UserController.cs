@@ -1,10 +1,12 @@
 ﻿using App.Services.Exceptions;
+using APS_01_2021.Hubs;
 using APS_01_2021.Models;
 using APS_01_2021.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;

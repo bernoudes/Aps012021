@@ -19,7 +19,7 @@ namespace APS_01_2021.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var claims = UserClaimsPrincipal.Claims.First().Value;
-            var list = await _invite.FindAllByNickName(claims);
+            var list = await _invite.FindAllByNickNameAsync(claims);
             return View(list);
         }
     }

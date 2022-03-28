@@ -21,6 +21,7 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/HConnection.js" asp-append-version="true"></script>
+    <script src="~/js/Connection/FrontAct.js" asp-append-version="true"></script>
     <script src="~/js/Connection/ActionElement.js" asp-append-version="true"></script>
     <script src="~/js/Connection/Structs.js" asp-append-version="true"></script>
      <script src="~/js/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
@@ -39,13 +40,25 @@
     let contactmeetselected = ''
 
     conn.start().then(function () {
-        console.log('Iniciado')
+        ActContactMeet().CallInviteAcceptBox('@Url.Action("CallInviteAccept","ComponentView")')
     }).catch(function (err) {
-        return console.error(err.toString());
+        return console.log(err.toString());
     })
 
-    conn.on("ReceiveMessage", (data) => { ActMessage().ShowMessage(data) })
+    conn.on("Update", (data) => {FrontActUpdate(data)})
+    conn.on("Call", (data) => {FrontActCall(data)})
+
+
+
+
+   /* conn.on("ReceiveMessage", (data) => { ActMessage().ShowMessage(data) })
     conn.on("ReceiveFullChatMessage", (data) => { ActMessage().ShowAllConversation(data) })
 
+    conn.on("ReceiveInviteContact", (data) => 
+        {ActContactMeet().ReceiveInviteContact('Url.Action("GetReceive","InviteContact")',data)})
 
+    conn.on("RefreshContacts", (data) => 
+        { ActContactMeet().RefreshContacts(data)})
+
+        //await Component.InvokeAsync("InviteAccept")*/
 </script>

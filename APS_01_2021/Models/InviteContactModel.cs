@@ -7,16 +7,16 @@ namespace APS_01_2021.Models
     public class InviteContactModel
     {
         public int Id { get; set; }
-        [Column("USER_ONE_ID")]
-        public int ContactOneId { get; set; }
-        [Column("USER_TWO_ID")]
-        public int ContactTwoId { get; set; }
+        [Column("INVITER_ID")]
+        public int Inviter_Id { get; set; }
+        [Column("INVITED_ID")]
+        public int Invited_Id { get; set; }
         [Column("DT_REF")]
         public DateTime DateReference { get; set; }
         [Column("IS_ACCEPT")]
         public string IsAccept { get; set; }
 
         [NotMapped]
-        public string ContactOneNickName { get; set; }
+        public string Invited_NickName { get; set; }
     }
 }

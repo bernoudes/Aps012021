@@ -23,78 +23,100 @@ namespace APS_01_2021.Services
             _contactService = contactService;
         }
 
-        public async Task InsertAsync(InviteContactModel inviteContact)
+        public async Task InsertAsync(string user, string contact)
         {
+            var userid = await _userservice.FindIdByNickName(user);
+            var contactid = await _userservice.FindIdByNickName(contact);
+            var contactobj = await _contactService.FindByNickNamesAsync(user, contact);
+
             var exist = _context.InviteContact
-                .Where(x => x.ContactOneId == inviteContact.ContactOneId || x.ContactTwoId == inviteContact.ContactOneId)
-                .Where(x => x.ContactOneId == inviteContact.ContactTwoId || x.ContactTwoId == inviteContact.ContactTwoId)
+                .Where(x => x.Inviter_Id == userid || x.Inviter_Id == contactid)
+                .Where(x => x.Invited_Id == contactid || x.Invited_Id == userid)
                 .FirstOrDefault();
 
-            if (inviteContact != null && exist == null)
+            if(contactobj != null)
             {
-                if (inviteContact.ContactOneId != 0 || inviteContact.ContactTwoId != 0)
+                throw new IntegrityException("ContactExists");
+            }
+            else if(exist == null || exist.IsAccept != "NOT_RESP" )
+            {
+                try
                 {
-                    _context.Add(inviteContact);
+                    InviteContactModel invmodel = new InviteContactModel()
+                    {
+                        Inviter_Id = userid,
+                        Invited_Id = contactid,
+                        IsAccept = "NOT_RESP",
+                        DateReference = DateTime.Now
+                    };
+
+                    _context.Add(invmodel);
                     await _context.SaveChangesAsync();
                 }
-            }
-            else
-            {
-                throw new Exception("InviteExists");
+                catch(Exception ex)
+                {
+                    throw new IntegrityException(ex.Message);
+                }
             }
         }
 
         /*FIND METHODS*/
-        public async Task<List<InviteContactModel>> FindAllByNickName(string nickname)
+        public async Task<List<InviteContactModel>> FindAllByNickNameAsync(string user)
         {
-            var userid = await _userservice.FindIdByNickName(nickname);
+            var userid = await _userservice.FindIdByNickName(user);
             var listUsers = await _context.InviteContact
-                .Where(x => x.ContactTwoId == (int)userid && x.IsAccept == "NOT_RESP")
+                .Where(x => x.Invited_Id == (int)userid && x.IsAccept == "NOT_RESP")
                 .ToListAsync();
 
             foreach (var item in listUsers)
             {
-                item.ContactOneNickName = await _userservice.FindNickNameById(item.ContactOneId);
+                item.Invited_NickName = await _userservice.FindNickNameById(item.Inviter_Id);
             }
 
             return listUsers;
         }
 
         /*UPDATE METHODS*/
-        public async Task<string> Accepting(InviteContactModel invite, bool IsAccept)
+        public async Task<string> AcceptingAsync(string inviter, string invited)
         {
+            return await AcceptingChoseAsync(inviter, invited, true);
+        }
+
+        public async Task<string> RejectingAsync(string inviter, string invited)
+        {
+            return await AcceptingChoseAsync(inviter, invited, false);
+        }
+
+        private async Task<string> AcceptingChoseAsync(string inviter, string invited,bool chose)
+        {
+            var inviterId = await _userservice.FindIdByNickName(inviter);
+            var invitedId = await _userservice.FindIdByNickName(invited);
+
             var inviteWithId = await _context.InviteContact
                 .Where(x => x.IsAccept == "NOT_RESP")
-                .Where(x => x.ContactOneId == invite.ContactOneId)
-                .Where(x => x.ContactTwoId == invite.ContactTwoId)
+                .Where(x => x.Inviter_Id == inviterId)
+                .Where(x => x.Invited_Id == invitedId)
                 .FirstOrDefaultAsync();
-
-            if (inviteWithId != null)
+            
+            if(inviteWithId != null)
             {
-                if (IsAccept)
-                {
-                    inviteWithId.IsAccept = "YES";
-                    var contact = new ContactModel { 
-                        UserOneId = inviteWithId.ContactOneId,
-                        UserTwoId = inviteWithId.ContactTwoId
-                    };
-                    await _contactService.InsertAsync(contact);
-                }
-                else
-                {
-                    inviteWithId.IsAccept = "NO";
-                }
                 try
                 {
+                    inviteWithId.IsAccept = chose == true ? "YES" : "NO";
                     _context.Update(inviteWithId);
                     await _context.SaveChangesAsync();
-                }
-                catch (Exception ex)
+                } 
+                catch(Exception ex)
                 {
-                    return "Error";
+                    throw new IntegrityException(ex.Message);
                 }
             }
-            return "Ok";
+            else
+            {
+                return "Invite not found";
+            }
+
+            return "OK";
         }
     }
 }

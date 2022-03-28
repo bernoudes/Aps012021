@@ -4,114 +4,132 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.SignalR;
+using APS_01_2021.Hubs;
+using APS_01_2021.Models.ViewModel;
+using System.Collections.Generic;
+using App.Services.Exceptions;
 
 namespace APS_01_2021.Controllers
 {
     public class InviteContactController : Controller
     {
-        private UserService _userService;
-        private InviteContactService _inviteContactService;
+        private readonly IHubContext<ChatHub> _hubContext;
+        private readonly InviteContactService _inviteContactService;
 
-        public InviteContactController(UserService userService, InviteContactService inviteContactService)
+        public InviteContactController(InviteContactService inviteContactService,
+            IHubContext<ChatHub> hubContext)
         {
-
-            _userService = userService;
             _inviteContactService = inviteContactService;
+            _hubContext = hubContext;
         }
 
+
+        [HttpGet]
         public IActionResult Create()
         {
             return ViewComponent("InviteContactCreate");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string contactNickName)
+        public async Task<IActionResult> Create(string nickname)
         {
-            string message = "Nhc";
+            var userNickname = User.Claims.First().Value;
+            MessageBoxViewModel msg = new ();
 
-            var invite = await GetUserAndContactId(contactNickName);
-
-            if (invite == null)
-            {
-                message = "Usuário Não encontrado";
-            }
-            else
+            if (nickname != null)
             {
                 try
                 {
-                    await _inviteContactService.InsertAsync(invite);
-                    message = "Convite Enviado";
+                    await _inviteContactService.InsertAsync(userNickname, nickname);
+
+                    FrontAction frontAction = new ("InviteContact","CallInviteContactOpt", userNickname);
+
+                    await _hubContext.Clients.User(nickname).SendAsync("Call", frontAction);
+
+                    return null;
                 }
-                catch(Exception)
+                catch (IntegrityException ex)
                 {
-                    message = "Convite já existente";
+                    if(ex.Message == "ContactExists")
+                    {
+                        msg.Title = "Mensagem para o usuário";
+                        msg.Message = "Esse contato já é cadastrado";
+
+                        return ViewComponent("MessageBox", msg);
+                    }
+                    msg.Title = "Mensagem para o usuário";
+                    msg.Message = "Não foi possível enviar convite";
+
+                    return ViewComponent("MessageBox", msg);
                 }
             }
+            msg.Title = "Mensagem para o usuário";
+            msg.Message = "Sem apelido preechido";
 
-            return Json(new { message = message });
+            return ViewComponent("MessageBox", msg);
         }
-        //-----------------------------------------------------
-        public IActionResult GetListSend()
-        {
-            return View();
-        }
-        public IActionResult GetListReceive()
+
+
+        public IActionResult ListReceive()
         {
             return ViewComponent("InviteContactList");
         }
-        //------------------------------------------------------
-        [HttpPost]
-        public async Task<IActionResult> Accept(string contactNickName)
+
+
+        public IActionResult GetReceive(string inviterNickName)
         {
-            return await AcceptAuxiliary(contactNickName, true);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Reject(string contactNickName)
-        {
-            return await AcceptAuxiliary(contactNickName, false);
+            OptionBoxViewModel opt = new ();
+
+            opt.Title = "Você tem um novo convite";
+            opt.Message = $"{inviterNickName} quer ser um dos seus contatos";
+            opt.OptionsMessage = new List<string> { "Aceitar", "Recusar" };
+            opt.MethodReturn = "Accept";
+            opt.ControllerReturn = "InviteContact";
+            opt.ExtraData = inviterNickName;
+
+            return ViewComponent("OptionBox", opt);
         }
 
-        private async Task<IActionResult> AcceptAuxiliary(string nickname,bool type)
+        public async Task<IActionResult> Accept(string selectOption, string extradata)
         {
-            var message = "none";
-            var invite = await GetUserAndContactId(nickname);
-
-            if (invite == null)
+            if(selectOption == "Aceitar")
             {
-                message = "Erro, Contate o serviço n°....";
+                return await RunAccept(extradata, true);
             }
             else
             {
-                message = await _inviteContactService.Accepting(invite, type);
+                return await RunAccept(extradata, false);
             }
-
-            return Json(new { message = message });
         }
-
-        //------------------------------------------------------
-        public IActionResult Delete()
-        {
-            return ViewComponent("Delete");
-        }
-        /*[HttpPost]
-        public Task<IActionResult> Delete()
-        {
-            return View();
-        }*/
-        //------------------------------------------------------
-        private async Task<InviteContactModel> GetUserAndContactId(string contactNickName)
+        
+        public async Task<IActionResult> RunAccept(string contactNickName, bool chose) 
         {
             var userNickname = User.Claims.First().Value;
-            var userid = await _userService.FindIdByNickName(userNickname);
-            var contactid = await _userService.FindIdByNickName(contactNickName);
-            var inviteContact = new InviteContactModel { ContactOneId = contactid, ContactTwoId = userid };
 
-            if(userid == 0 || contactid == 0)
+            //chose == true accept; chose == false reject
+            if (chose == true)
             {
+                try
+                {
+                    await _inviteContactService.AcceptingAsync(contactNickName, userNickname);
+                    return RedirectToAction("Create", "Contact", new { contactNickName = contactNickName });
+                    
+                }
+                catch(Exception)
+                {
+                    MessageBoxViewModel msg = new ();
+                    msg.Title = "Mensagem para o usuário";
+                    msg.Message = "Não foi possivél aceitar o novo contato, tente novamente mais tarde";
+
+                    return ViewComponent("MessageBox", msg);
+                }
+            }
+            else
+            {
+                await _inviteContactService.RejectingAsync(contactNickName, userNickname);
                 return null;
             }
-
-            return inviteContact;
         }
     }
 }

@@ -1,32 +1,48 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using APS_01_2021.Models;
+using APS_01_2021.Services;
+using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace APS_01_2021.Hubs
 {
     public class ChatHub : Hub
     {
+        private readonly UserService _userService;
+        private readonly ContactService _contactService;
+        
+
+        public ChatHub(UserService userService, ContactService contactService)
+        {
+            _userService = userService;
+            _contactService = contactService;
+        }
+
         public override async Task OnConnectedAsync()
         {
-            //Esse método se ativa sozinho ao se conectar
-            //Pega todos os contatos e seus respectivos status e envia para o usuario
-            //Envia a situação do usuario para os outro usurios
-            //adiciona a conexão com o grupo de contatos
-            //await Groups.AddToGroupAsync(Context.ConnectionId, "Signa")
+            await SendUserStatusConnection("online");
             await base.OnConnectedAsync();
         }
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            //envia para os contatos que desconectou
-            //removea a conexão com o grupo de contatos
-            //await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Signa")
+            await SendUserStatusConnection("offline");
             await base.OnDisconnectedAsync(exception);
         }
-        public async Task SendMessage(string type, string receive, string message)
-        {
 
-            var t = type;
-            await Clients.All.SendAsync("ReceiveMessage", receive, message);
+        private async Task SendUserStatusConnection(string status)
+        {
+            var userNickname = Context.User.Claims.First().Value;
+            var listcontact = await _contactService.FindAllByNickNameAsync(userNickname);
+
+            await _userService.UpdateStatusConnection(userNickname, status);
+
+            FrontAction frontAction = new ("Contact", "UpdateStatusConn", new { nickname = userNickname, status = status.ToUpper() });
+
+            foreach (var contact in listcontact)
+            {
+                await Clients.User(contact.ContactNickName).SendAsync("Update", frontAction);
+            }
         }
     }
 }

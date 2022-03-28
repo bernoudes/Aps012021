@@ -15,16 +15,18 @@ namespace APS_01_2021.Models
         public string NickName { get; set; }
         public DateTime BornDate { get; set; }
         public string Email { get; set; }
+        public string StatusConnection { get; set; }
+ 
         [NotMapped]
         public string ConfirmPassword { get; set; }
 
         public string IsPasswordStrong(string password)
         {
-            Regex regexPassNum = new Regex("(?=.*[0-9])");
-            Regex regexSpecial = new Regex("(?=.*[!@#$&*])");
-            Regex regexPassLowCase = new Regex("(?=.*[a-z])");
-            Regex regexPassUpperCase = new Regex("(?=.*[A-Z])");
-            Regex regexPassMany = new Regex(".{8,10}");
+            Regex regexPassNum = new ("(?=.*[0-9])");
+            Regex regexSpecial = new ("(?=.*[!@#$&*])");
+            Regex regexPassLowCase = new ("(?=.*[a-z])");
+            Regex regexPassUpperCase = new ("(?=.*[A-Z])");
+            Regex regexPassMany = new (".{8,10}");
 
             
             if (!regexPassNum.IsMatch(password))

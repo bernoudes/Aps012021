@@ -52,11 +52,12 @@ namespace APS_01_2021.Controllers
             };
             await _chatService.InsertAsync(chatMessage);
 
-            await _hubContext.Clients.User(receiver).SendAsync("ReceiveMessage",
+            FrontAction frontAction = new(
+                "ChatMessage", "ReceiveMessage",
                 _chatService.ConvertChatMessageForMessageViewModel(chatMessage));
 
-            await _hubContext.Clients.User(userNickname).SendAsync("ReceiveMessage",
-                _chatService.ConvertChatMessageForMessageViewModel(chatMessage));
+            await _hubContext.Clients.User(receiver).SendAsync("Update", frontAction);
+            await _hubContext.Clients.User(userNickname).SendAsync("Update", frontAction);
 
             return "OK";
         }
@@ -78,7 +79,10 @@ namespace APS_01_2021.Controllers
                 //receiverid = await _meetService.FindIdByKeyName(receiver);
             }
 
-            await _hubContext.Clients.User(userNickname).SendAsync("ReceiveFullChatMessage", list);
+            FrontAction frontAction = new(
+                "ChatMessage", "ReceiveFullChat", list);
+
+            await _hubContext.Clients.User(userNickname).SendAsync("Update", frontAction);
 
             return "OK";
         }

@@ -24,6 +24,7 @@ function OpenComponentPopUp(UrlAction, idresultBox) {
     }).fail(function (xhdr, statusText, errorText) {
         $(idresultBox).text(JSON.stringify(xhdr));
     });
+    document.getElementById("popupCenterAux").style.zIndex = 1;
 }
 
 async function SendInfoComponentPopUpReturnData(url) {
@@ -63,11 +64,15 @@ function sendInfoComponentPopUp(e, url, idmessage) {
 function ClosePopUpBoxById(boxid)
 {
     document.getElementById(boxid).remove()
+    document.getElementById("popupCenterAux").style.zIndex = -1;
 }
 
 function CloseAllPopUpBox()
 {
+    console.log("passando aqui no close")
     listBoxCloseClick.forEach(x => ClosePopUpBoxById(x))
+    document.getElementById("popupCenterAux").style.zIndex = -1;
+    console.log("passando aqui no close")
 }
 
 function GetStringFirtIdText(text)

@@ -3,53 +3,34 @@
     Layout = null;
 }
 
-<div class="m-intern-block invite-intern-box">
+<div class="m-intern-block invite-intern-box" id="iinvite_contact">
     <div class="m-block-title">Convites Contatos</div>
-    @{
-        if (Model.FirstOrDefault() == null)
-        {
-            <div class="invite-content d-flex justify-content-center align-items-center ">
-                <p><bold>Você não tem convites</bold></p>
-            </div>
 
-        }
-        else
-        {
-            <div class="l-contact-content invite-content">
-                @foreach (var item in Model)
+    <div class="l-contact-content invite-content" id="iinvite_contact_content">
+        @{
+            if (Model.FirstOrDefault() == null)
+            {
+                <script>ActInviters().ShowContentNotInvite("iinvite_contact_content")</script>
+            }
+            else
+            {
+                foreach (var item in Model)
                 {
-                    <div class="invite-line" id="ibts-invite-@item.ContactOneNickName">
-                        <label>@item.ContactOneNickName</label>
+                    <div class="invite-line" id="ibts-invite-@item.Invited_NickName">
+                        <label>@item.Invited_NickName</label>
                         <div class="invite-bts-line-group">
-                            <button class="m-button invite-bts-line" 
-                                onclick="InviteAccept('@item.ContactOneNickName')">aceitar</button>
-                            <button class="m-button invite-bts-line" 
-                                onclick="InviteReject('@item.ContactOneNickName')">rejeitar</button>
+                            <button class="m-button invite-bts-line"
+                            onclick="ActInviters().InviteAccept('@item.Invited_NickName')">
+                                aceitar
+                            </button>
+                            <button class="m-button invite-bts-line"
+                            onclick="ActInviters().InviteReject('@item.Invited_NickName')">
+                                rejeitar
+                            </button>
                         </div>
                     </div>
                 }
-            </div>
+            }
         }
-    }
+    </div>
 </div>
-
-<script>
-    async function InviteAccept(nickname)
-    {
-        var url = '@Url.Action("Accept", "InviteContact")?contactNickName='+ nickname
-        var result = await SendInfoComponentPopUpReturnData(url)
-        if (result = "OK")
-        {
-            document.getElementById(`ibts-invite-${nickname}`).remove()
-        }
-    }
-
-    async function InviteReject(nickname){
-        var url = '@Url.Action("Reject", "InviteContact")?contactNickName='+ nickname
-        var result = await SendInfoComponentPopUpReturnData(url)
-        if (result = "OK")
-        {
-            document.getElementById(`ibts-invite-${nickname}`).remove()
-        }
-    }
-</script>

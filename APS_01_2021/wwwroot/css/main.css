@@ -82,14 +82,11 @@
 /*EXTERN BOX (POP UP)*/
 .m-extern-box {
     left: 50%;
-    margin-left: -150px;
-    margin-top: 20px; 
-    position: absolute;
     background-color: var(--background-color-two);
     border: solid 4px var(--color-four);
     width: 350px;
     border-radius: 10px;
-    z-index: 1;
+    z-index: 2;
 }
 .m-extern-box-title {
     background-color: var(--title-box-color-one);
@@ -107,7 +104,17 @@
     padding: 0px 10px;
     overflow-y: scroll;
 }
-
+.m-extern-box-center-aux {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+}
 /*--------------------------------------------------*/
 /*BUTTONS AREA*/
 .m-btn, m-btn:focus {
@@ -176,6 +183,10 @@
         border-radius: 10px;
     }
 /*--------------------------------------------------*/
+
+
+
+
 
 .login-area{
     color: var(--text-color-two);

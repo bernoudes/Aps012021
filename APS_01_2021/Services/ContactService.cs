@@ -1,16 +1,19 @@
 ﻿using APS_01_2021.Data;
 using APS_01_2021.Models;
+using APS_01_2021.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
+using App.Services.Exceptions;
 
 namespace APS_01_2021.Services
 {
     public class ContactService
     {
-        private MyDbContext _context;
-        private UserService _userServices;
+        private readonly MyDbContext _context;
+        private readonly UserService _userServices;
 
         public ContactService(MyDbContext context, UserService userServices)
         {
@@ -19,49 +22,127 @@ namespace APS_01_2021.Services
         }
 
         /*create*/
-        public async Task<string> InsertAsync(ContactModel contact)
+        public async Task<string> InsertAsync(string user, string contact)
         {
-            if (contact == null || contact.UserOneId == 0 || contact.UserTwoId == 0)
+            try
             {
-                return "PARAMETER_ERROR";
-            }
+                var userid = await _userServices.FindIdByNickName(user);
+                var contactid = await _userServices.FindIdByNickName(contact);
+                var contactobj = await _context.Contact
+                    .Where(x => x.UserOneId == userid || x.UserOneId == contactid)
+                    .Where(x => x.UserTwoId == userid || x.UserTwoId == contactid)
+                    .FirstOrDefaultAsync();
 
-            /*checking existence*/
-            var contactResult = await _context.Contact
-                .Where(x => x.UserOneId == contact.UserOneId || x.UserOneId == contact.UserTwoId)
-                .Where(x => x.UserTwoId == contact.UserOneId || x.UserTwoId == contact.UserTwoId)
-                .FirstOrDefaultAsync();
-
-            if (contactResult == null)
-            {
-                _context.Add(contact);
-                await _context.SaveChangesAsync();
-                return "OK";
-            }
-
-            return "CONTACT_EXISTS";
-        }
-
-        public async Task<List<ContactModel>> FindAllByNickName(string nickName)
-        {
-            var userid = await _userServices.FindIdByNickName(nickName);
-            var list = await _context.Contact
-                .Where(x => x.UserOneId == userid || x.UserTwoId == userid)
-                .ToListAsync();
-
-            foreach(var item in list)
-            {   
-                if(item.UserOneId == userid)
+                if(contactobj == null)
                 {
-                    item.ContactNickName = await _userServices.FindNickNameById(item.UserTwoId);
+                    ContactModel contactMod = new () 
+                    { 
+                        UserOneId = userid,
+                        UserTwoId = contactid,
+                    };
+
+                    _context.Add(contactMod);
+                    await _context.SaveChangesAsync();
+                    return "OK";
                 }
                 else
                 {
-                    item.ContactNickName = await _userServices.FindNickNameById(item.UserOneId);
+                    throw new IntegrityException("Contact Existis");
                 }
             }
+            catch (NullReferenceException ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
+        }
 
-            return list;
+        public async Task<String> FindStatusConncectionAsync(string user)
+        {
+            try
+            {
+                return await _userServices.FindStatusConnectionByNickNameAsync(user);
+            }
+            catch (Exception ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
+        }
+        
+
+        public async Task<ContactModel> FindByNickNamesAsync(string user, string contact)
+        {
+            try
+            {
+                var userid = await _userServices.FindIdByNickName(user);
+                var contactid = await _userServices.FindIdByNickName(contact);
+                var contactobj = await _context.Contact
+                    .Where(x => x.UserOneId == userid || x.UserOneId == contactid)
+                    .Where(x => x.UserTwoId == userid || x.UserTwoId == contactid)
+                    .FirstOrDefaultAsync();
+                return contactobj;
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
+        }
+
+        public async Task<List<ContactModel>> FindAllByNickNameAsync(string nickName)
+        {
+            try
+            {
+                var userid = await _userServices.FindIdByNickName(nickName);
+                var list = await _context.Contact
+                    .Where(x => x.UserOneId == userid || x.UserTwoId == userid)
+                    .ToListAsync();
+
+                foreach (var item in list)
+                {
+                    if (item.UserOneId == userid)
+                    {
+                        var user = await _userServices.FindNickNameAndStatusConnectionById(item.UserTwoId);
+                        item.StatusConnection = user.StatusConnection;
+                        item.ContactNickName = user.NickName;
+                    }
+                    else
+                    {
+                        var user = await _userServices.FindNickNameAndStatusConnectionById(item.UserOneId);
+                        item.StatusConnection = user.StatusConnection;
+                        item.ContactNickName = user.NickName;
+                    }
+                }
+                return list;
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
+        }
+
+        public async Task DeleteAsync(string user,string contact)
+        {
+            try
+            {
+                var contactobj = await FindByNickNamesAsync(user,contact);
+                _context.Contact.Remove(contactobj);
+                await _context.SaveChangesAsync();   
+            }
+            catch(DbUpdateException ex)
+            {
+                throw new IntegrityException(ex.Message);
+            }
         }
     }
 }
