@@ -2,7 +2,8 @@
 .l-contact-intern-box {
     width: 90%;
     margin-top: 20px;
-    max-height: 40%;
+    height: 40%;
+    border-radius: 10px
 }
 
 .l-contact-content {
@@ -48,6 +49,11 @@
 
 .l-contacts-ball-offline {
     background-color: black;
+}
+
+.l-message-not-read {
+    border-right: solid chartreuse;
+    border-left: solid chartreuse;
 }
 /*////////////////////////////////////////*/
 /*list contact*/

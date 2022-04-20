@@ -13,13 +13,15 @@ namespace APS_01_2021.Services
 {
     public class ChatMessageService
     {
-        private MyDbContext _context;
-        private UserService _userServices;
+        private readonly MyDbContext _context;
+        private readonly UserService _userServices;
+        private readonly ContactService _contactService;
 
-        public ChatMessageService(MyDbContext context, UserService userServices)
+        public ChatMessageService(MyDbContext context, UserService userServices,ContactService contactService)
         {
             _context = context;
             _userServices = userServices;
+            _contactService = contactService;
         }
 
         public async Task<string> InsertAsync(ChatMessageModel chatMessage)
@@ -34,6 +36,11 @@ namespace APS_01_2021.Services
                 {
                     _context.ChatMessage.Add(chatMessage);
                     await _context.SaveChangesAsync();
+
+                    if(chatMessage.type == "contact")
+                    {
+                        await _contactService.ContatcNotReadMessageAsync(chatMessage.userId, chatMessage.receiverId);
+                    }
                 } catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
@@ -41,6 +48,19 @@ namespace APS_01_2021.Services
                 
             }
             return "OK";
+        }
+
+        public async Task UserReadTheMessageAsync(string type, int userId, string receiver)
+        {
+            if (type == "contact")
+            {
+                var receiverid = await _userServices.FindIdByNickName(receiver);
+                await _contactService.UserReadMessageAsync(userId, receiverid);
+            }
+            else if (type == "meet")
+            {
+                //receiverid = await _meetService.FindIdByKeyName(receiver);
+            }
         }
 
         public async Task<List<MessageForChatViewModel>> GetAllMessageContact(int userId, int receiverId,
@@ -68,6 +88,8 @@ namespace APS_01_2021.Services
                         x.WhoSendMessage = receiveNickName;
                     }
                 });
+
+                await _contactService.UserReadMessageAsync(userId, receiverId);
 
                 return ConvertChatMessageForMessageViewModel(list);
             }

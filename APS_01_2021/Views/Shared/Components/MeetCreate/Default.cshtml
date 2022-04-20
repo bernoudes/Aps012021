@@ -1,4 +1,4 @@
-﻿@model APS_01_2021.Models.ViewModel.InviteMeetViewModel
+﻿@model APS_01_2021.Models.MeetModel
 @{
     Layout = null;
 }
@@ -15,13 +15,13 @@
             
             <label>Contatos:</label>
             @{
-                if(Model.ContactList.Count > 0)
+                if(Model.MeetContactConf.Count > 0)
                 {
-                    foreach(var item in Model.ContactList)
+                    for(int i=0; i<Model.MeetContactConf.Count; i++)
                     {
                         <div>
-                            <input type="checkbox" asp-for="@item.Invited"/>
-                            <label>@item.UserNickName</label>
+                            <input type="checkbox" asp-for="@Model.MeetContactConf[i].IsModerator"/>
+                            <label>@Model.MeetContactConf[i].NickName</label>
                         </div>
                     }
                 }

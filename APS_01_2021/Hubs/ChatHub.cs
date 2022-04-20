@@ -11,7 +11,6 @@ namespace APS_01_2021.Hubs
     {
         private readonly UserService _userService;
         private readonly ContactService _contactService;
-        
 
         public ChatHub(UserService userService, ContactService contactService)
         {
@@ -33,6 +32,7 @@ namespace APS_01_2021.Hubs
         private async Task SendUserStatusConnection(string status)
         {
             var userNickname = Context.User.Claims.First().Value;
+           // await _contactService.ReorderListAsync(userNickname);
             var listcontact = await _contactService.FindAllByNickNameAsync(userNickname);
 
             await _userService.UpdateStatusConnection(userNickname, status);

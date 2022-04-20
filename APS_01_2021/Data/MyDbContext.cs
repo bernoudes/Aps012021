@@ -10,6 +10,9 @@ namespace APS_01_2021.Data
         public DbSet<InviteMeetModel> InviteMeeting { get; set; }
         public DbSet<ContactModel> Contact { get; set; }
         public DbSet<ChatMessageModel> ChatMessage { get; set; }
+        public DbSet<MeetModel> Meet { get; set; }
+        public DbSet<ContactMeetModel> ContactMeet { get; set; }
+
 
         public MyDbContext(DbContextOptions<MyDbContext> options)
             : base(options)

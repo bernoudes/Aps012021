@@ -1,4 +1,4 @@
-﻿@model IEnumerable<APS_01_2021.Models.ContactModel>
+﻿@model IEnumerable<APS_01_2021.Models.ViewModel.ContactListViewModel>
 @{
     Layout = null;
 }
@@ -30,7 +30,8 @@
         {
             foreach(var item in Model)
             {
-                <div class="l-contacts-line" id="idCont-@item.ContactNickName" 
+
+                <div class="l-contacts-line  @(item.IsWaitReadMessage == true ? " l-message-not-read":"")" id="idCont-@item.ContactNickName" 
                 onclick="onclickAux(this.id)">
 
                     <div class="l-contacts-ball 

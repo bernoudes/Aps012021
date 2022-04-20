@@ -12,5 +12,6 @@ namespace APS_01_2021.Models.ViewModel
         public string MethodReturn { get; set; }
         public List<string> OptionsMessage { get; set; }
         public string ExtraData { get; set; }
+        public string UrlReturn { get; set; }
     }
 }

@@ -5,6 +5,8 @@
     border-radius: 20px;
     display: flex;
     flex-direction:column;
+
+    width: 100%;
 }
 
 /*Message Area*/
@@ -15,8 +17,10 @@
 
     height: 100%;
     max-height: 1fr;
-    width: 400px;
+    width: auto;
     overflow-y: scroll;
+
+
 }
 
 .chat-message-content {

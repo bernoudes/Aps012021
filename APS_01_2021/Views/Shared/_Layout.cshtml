@@ -40,7 +40,7 @@
     let contactmeetselected = ''
 
     conn.start().then(function () {
-        ActContactMeet().CallInviteAcceptBox('@Url.Action("CallInviteAccept","ComponentView")')
+        ActContactMeet().CallInviteAcceptBox()
     }).catch(function (err) {
         return console.log(err.toString());
     })

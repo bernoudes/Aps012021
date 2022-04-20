@@ -14,14 +14,10 @@ function ActMessage() {
         let message = (document.getElementById("message-box").value)
         let result = Messages().SendMessage(url,message)
         document.getElementById("message-box").value = "";
+        ActContactMeet().PutContactFirst(ActContactMeet().GetSelectedContactMeet().receiver)
     }
 
     const ShowMessage = (data) => {
-        let messagediv = document.createElement("div");
-        let chatareadiv = document.getElementById("chat_area");
-        let nameparagraph = `<p> ${data.WhoSendMessage} </p>`;
-        let messageparagraph = `<p>${data.Message}</p>`;
-        let timeparagraph = `<p> horário: ${data.Time} </p>`;
         let isCurrentUser = ActUser().IsCurrentUser(data.WhoSendMessage)
         let showMessage = false
 
@@ -30,6 +26,12 @@ function ActMessage() {
         }
 
         if (showMessage) {
+            let messagediv = document.createElement("div");
+            let chatareadiv = document.getElementById("chat_area");
+            let nameparagraph = `<p> ${data.WhoSendMessage} </p>`;
+            let messageparagraph = `<p>${data.Message}</p>`;
+            let timeparagraph = `<p> horário: ${data.Time} </p>`;
+
             messagediv.classList.add("chat-message-content");
 
             if (ActUser().IsCurrentUser(data.WhoSendMessage)) {
@@ -41,6 +43,10 @@ function ActMessage() {
 
             chatareadiv.appendChild(messagediv);
             chatareadiv.scrollTop = chatareadiv.scrollHeight;
+        }
+        else {
+            ActContactMeet().PutContactFirst(data.WhoSendMessage)
+            ActContactMeet().MarkMessageNotRead(data.WhoSendMessage)
         }
     }
 
@@ -74,16 +80,20 @@ function ActContactMeet() {
     }
 
     const SelectContactMeet = (type, contactmeetid, url) => {
-        if ( contactmeetselected != contactmeetid ) {
+        if (contactmeetselected != contactmeetid) {
             let element = document.getElementById(contactmeetid)
             if (contactmeetselected != '') {
                 let selected = document.getElementById(contactmeetselected)
                 selected.classList.remove('selected')
             }
             element.classList.add('selected')
+            element.classList.remove('l-message-not-read')
+
+            contactmeetselected = contactmeetid
+
+            SendSeeTheMessage()
         }
 
-        contactmeetselected = contactmeetid
 
         if (type == 'contact') {
             Messages().SelectChatContact(url,contactmeetid.substring(7))
@@ -92,6 +102,11 @@ function ActContactMeet() {
         }
 
         document.getElementById("message-box").value = "";
+    }
+
+    const SendSeeTheMessage = () => {
+        let url = "/ChatMessage/UserSeeTheMessage"
+        Communication().SendData(url, GetSelectedContactMeet())
     }
 
     const SendInviteContact = (url) => {
@@ -108,6 +123,17 @@ function ActContactMeet() {
         let boxcontent = Communication().CallPopupBox(url, ndata)
     }
 
+    const CallMeetCreateBox = () => {
+        let url = "/Meet/Create"
+        let boxcontent = Communication().CallPopupBox(url, null)
+    }
+
+    const CallInviteAcceptBox = () => {
+        let boxcontent = Communication().CallPopupBox("/cvc")
+        if (boxcontent != "fail") {
+        }
+    }
+
     const CallDeleteContactBox = (url) => {
         let boxcontent = Communication().CallPopupBox(url, GetSelectedContactMeet())
     }
@@ -116,12 +142,6 @@ function ActContactMeet() {
         let boxcontent = Communication().CallPopupBoxJsonData(url, data)
         if (boxcontent != "fail") {
             
-        }
-    }
-
-    const CallInviteAcceptBox = (url) => {
-        let boxcontent = Communication().CallPopupBox(url)
-        if (boxcontent != "fail") {
         }
     }
 
@@ -145,7 +165,7 @@ function ActContactMeet() {
     }
 
     const AddContacts = (data) => {
-        //data = {statusconn, contact}
+        //data = {statusconn, contact, messageNotRead}
         let elementlistContact = document.getElementById("il-contact-content")
 
         if (elementlistContact.firstElementChild.getAttribute("id") == null) {
@@ -156,10 +176,11 @@ function ActContactMeet() {
         let innerElement = document.createElement("div")
         let text = document.createTextNode(`${data.contact}`)
         let classStatus = ReturnClassStatus(data.statusconn)
+        let classMessageNotRead = data.messageNotRead == true ? "l-message-not-read" : ""
 
-        innerElement.setAttribute("class", `l-contacts-ball ${classStatus}`)
+        innerElement.setAttribute("class", `l-contacts-ball ${classStatus} `)
         element.setAttribute("id", `idCont-${data.contact}`)
-        element.setAttribute("class", "l-contacts-line")
+        element.setAttribute("class", `l-contacts-line ${classMessageNotRead}`)
         element.setAttribute("onclick", "onclickAux(this.id)")
         element.appendChild(innerElement)
         element.appendChild(text)
@@ -176,16 +197,47 @@ function ActContactMeet() {
             element.classList.remove(StatusConnList[i])
         }
         element.classList.add(classStatus)
-
-        console.log(element)
     }
+
+    const PutContactFirst = (data) => {
+        let elementlistContact = document.getElementById("il-contact-content")
+        let elementchild = ActAuxFunc().ChildrenWithOutTextNode(elementlistContact)
+        let newElementChildList = []
+
+        if (elementchild.length > 1) {
+            for (let i = 0; i < elementchild.length; i++) {
+                if (elementchild[i].id == `idCont-${data}`) {
+                    newElementChildList.unshift(elementchild[i])
+                }
+                else {
+                    newElementChildList.push(elementchild[i])
+                }
+            }
+            elementlistContact.innerHTML = ""
+
+            for (let i = 0; i < elementchild.length; i++) {
+                elementlistContact.appendChild(newElementChildList[i])
+            }
+        }
+    }
+
+    const MarkMessageNotRead = (data) => {
+        let elementlistContact = document.getElementById("il-contact-content")
+        let elementchild = ActAuxFunc().ChildrenWithOutTextNode(elementlistContact)
+
+       for (let i = 0; i < elementchild.length; i++) {
+           if (elementchild[i].id == `idCont-${data}`) {
+               elementchild[i].classList.add("l-message-not-read")
+           }
+        }
+    }
+    
 
     return {
-        GetSelectedContactMeet, SelectContactMeet, SendInviteContact, CallDeleteContactBox,
-        CallInviteContactBox, ReceiveInviteContact, CallInviteAcceptBox, AddContacts, UpdateStatusConn
+        GetSelectedContactMeet, SelectContactMeet, SendInviteContact, CallDeleteContactBox, PutContactFirst, SendSeeTheMessage,
+        MarkMessageNotRead, CallInviteContactBox, ReceiveInviteContact, CallInviteAcceptBox, AddContacts, UpdateStatusConn, CallMeetCreateBox
     }
 }
-
 
 function ActInviters() {
     const InviteAccept = (contact) => {

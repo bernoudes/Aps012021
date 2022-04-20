@@ -16,6 +16,7 @@ function FrontActUpdMesssage(data) {
     switch (data.actSolicited) {
         case "ReceiveMessage":
             ActMessage().ShowMessage(JSON.parse(data.extraData))
+            ActContactMeet().SendSeeTheMessage()
             break
         case "ReceiveFullChat":
             ActMessage().ShowAllConversation(JSON.parse(data.extraData))

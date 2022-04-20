@@ -52,7 +52,9 @@ namespace APS_01_2021
             services.AddScoped<InviteContactService>();
             services.AddScoped<InviteMeetService>();
             services.AddScoped<ContactService>();
+            services.AddScoped<MeetService>();
             services.AddScoped<ChatMessageService>();
+            services.AddScoped<ContactMeetService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +77,8 @@ namespace APS_01_2021
             app.UseAuthentication();
             app.UseAuthorization();
 
+            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -83,6 +87,8 @@ namespace APS_01_2021
 
                 endpoints.MapHub<ChatHub>("/chatHub");
             });
+
+
         }
     }
 }

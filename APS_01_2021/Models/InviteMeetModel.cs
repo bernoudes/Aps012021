@@ -16,7 +16,10 @@ namespace APS_01_2021.Models
         public int ContactId { get; set; }
         [Column("IS_ACCEPT")]
         public string IsAccept { get; set; }
-
+        [Column("IS_MODERATOR")]
+        public bool IsModerator { get; set; }
+        [Column("DT_REF")]
+        public DateTime CreationDate { get; set; }
         [NotMapped]
         public string AdminUserNickName { get; set; }
     }

@@ -7,7 +7,7 @@
     <div class="m-block-title">
         Reunião
         <div class="m-block-button-group">
-            <button type="button"  class="m-block-title-button m-button" onclick="OpenInviteMeet()"> 
+            <button type="button"  class="m-block-title-button m-button" onclick="ActContactMeet().CallMeetCreateBox()"> 
                 Criar 
             </button>
             <button class="m-block-title-button m-button">Deletar</button>
@@ -42,7 +42,7 @@
 <script>
     function OpenInviteMeet(){
         console.log("Open Here")
-        OpenComponentPopUp('@Url.Action("Create","InviteMeet")', '#results')
+        OpenComponentPopUp('@Url.Action("Create","Meet")', '#results')
     }
     //ata-url="
 </script>
